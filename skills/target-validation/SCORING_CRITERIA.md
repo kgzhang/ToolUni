@@ -168,14 +168,85 @@ Detailed scoring matrices, evidence grading, and priority tier definitions for t
 
 ## Modality-Specific Adjustments
 
-| Modality | Bonus/Adjustment | Criteria |
-|----------|------------------|----------|
-| Small Molecule | +2 | High-res co-crystal structure with small molecule ligand |
-| Small Molecule | Focus | Oral tractability buckets 1-7 |
-| Antibody | +2 | Confirmed surface accessibility on disease cells |
-| Antibody | Focus | Extracellular domain coverage |
-| PROTAC | +2 | Known ligand with suitable linker attachment sites |
-| PROTAC | Focus | Surface lysines for ubiquitination |
+### Small Molecule
+| Adjustment | Criteria | Points |
+|------------|----------|--------|
+| Bonus | High-res co-crystal structure with small molecule ligand | +2 |
+| Bonus | Oral bioavailability data from approved drugs | +1 |
+| Penalty | Shallow binding pockets (volume < 200 A3) | -2 |
+| Focus | Oral tractability buckets 1-7 | N/A |
+
+### Monoclonal Antibody
+| Adjustment | Criteria | Points |
+|------------|----------|--------|
+| Bonus | Confirmed surface expression on disease cells | +2 |
+| Bonus | Unique epitope with no cross-reactivity | +1 |
+| Penalty | Intracellular localization | -2 |
+| Penalty | High homology paralogs (>80% identity) | -1 |
+| Focus | Extracellular domain coverage | N/A |
+
+### PROTAC
+| Adjustment | Criteria | Points |
+|------------|----------|--------|
+| Bonus | Known binders with suitable linker attachment sites | +2 |
+| Bonus | Multiple E3 ligase options available | +1 |
+| Penalty | Membrane protein without intracellular domain | -2 |
+| Penalty | Disordered regions near binding site | -1 |
+| Focus | Surface lysines for ubiquitination | N/A |
+
+### Gene Therapy
+| Adjustment | Criteria | Points |
+|------------|----------|--------|
+| Bonus | Tissue-specific promoter available | +2 |
+| Bonus | AAV delivery data in relevant tissue | +1 |
+| Penalty | Ubiquitous expression of essential gene | -2 |
+| Penalty | Immune-privileged site required | -1 |
+| Focus | Tissue specificity for safety window | N/A |
+
+### RNA Therapeutic (siRNA/ASO/mRNA)
+| Adjustment | Criteria | Points |
+|------------|----------|--------|
+| Bonus | Validated siRNA/ASO with published data | +2 |
+| Bonus | Accessible tissue (liver, kidney, CNS) | +1 |
+| Penalty | High homology gene family (>80% identity) | -2 |
+| Penalty | Nuclear localization (for siRNA) | -1 |
+| Focus | Off-target potential assessment | N/A |
+
+### Cell Therapy (CAR-T/CAR-NK)
+| Adjustment | Criteria | Points |
+|------------|----------|--------|
+| Bonus | Tumor-specific antigen (no normal tissue expression) | +2 |
+| Bonus | Resistance to exhaustion demonstrated | +1 |
+| Penalty | Expression on vital normal tissues | -2 |
+| Penalty | Heterogeneous expression in tumor | -1 |
+| Focus | Surface marker specificity | N/A |
+
+### Peptide Therapeutic
+| Adjustment | Criteria | Points |
+|------------|----------|--------|
+| Bonus | Structurally constrained (cyclized, stapled) | +2 |
+| Bonus | Cell-penetrating potential | +1 |
+| Penalty | Protease-sensitive cleavage sites | -2 |
+| Penalty | Rapid renal clearance expected | -1 |
+| Focus | Stability and permeability | N/A |
+
+### Bispecific Antibody
+| Adjustment | Criteria | Points |
+|------------|----------|--------|
+| Bonus | Synergistic mechanism demonstrated | +2 |
+| Bonus | Optimal spatial arrangement possible | +1 |
+| Penalty | Competing epitopes on same target | -2 |
+| Penalty | Steric hindrance between arms | -1 |
+| Focus | Dual target engagement geometry | N/A |
+
+### Antibody-Drug Conjugate (ADC)
+| Adjustment | Criteria | Points |
+|------------|----------|--------|
+| Bonus | Rapid internalization rate (>50% in 1hr) | +2 |
+| Bonus | Tumor-selective expression (low normal tissue) | +1 |
+| Penalty | Slow surface turnover | -2 |
+| Penalty | Shed soluble antigen | -1 |
+| Focus | Internalization and trafficking | N/A |
 
 ---
 
@@ -194,10 +265,10 @@ Detailed scoring matrices, evidence grading, and priority tier definitions for t
 
 | Tier | Symbol | Criteria | Examples |
 |------|--------|----------|----------|
-| **T1** | ⭐⭐⭐ | Direct mechanistic, human clinical proof | FDA-approved drug, crystal structure with mechanism, patient mutation |
-| **T2** | ⭐⭐ | Functional studies, model organism | siRNA phenotype, mouse KO, biochemical assay, CRISPR screen |
-| **T3** | ⭐ | Association, screen hits, computational | GWAS hit, DepMap essentiality, expression correlation |
-| **T4** | - | Mention, review, text-mined, predicted | Review article, database annotation, AlphaFold prediction |
+| **T1** | [T1] | Direct mechanistic, human clinical proof | FDA-approved drug, crystal structure with mechanism, patient mutation |
+| **T2** | [T2] | Functional studies, model organism | siRNA phenotype, mouse KO, biochemical assay, CRISPR screen |
+| **T3** | [T3] | Association, screen hits, computational | GWAS hit, DepMap essentiality, expression correlation |
+| **T4** | [T4] | Mention, review, text-mined, predicted | Review article, database annotation, AlphaFold prediction |
 
 ---
 

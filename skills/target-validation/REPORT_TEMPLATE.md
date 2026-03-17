@@ -437,9 +437,9 @@ Full report template with all sections, completeness checklist, and section-spec
 
 | Priority | Experiment | Rationale | Expected Timeline |
 |----------|------------|-----------|-------------------|
-| 🔴 HIGH | [Experiment] | [Why needed] | [Timeline] |
-| 🟡 MEDIUM | [Experiment] | [Why needed] | [Timeline] |
-| 🟢 LOW | [Experiment] | [Why needed] | [Timeline] |
+| HIGH | [Experiment] | [Why needed] | [Timeline] |
+| MEDIUM | [Experiment] | [Why needed] | [Timeline] |
+| LOW | [Experiment] | [Why needed] | [Timeline] |
 
 ### Data Gaps to Address
 
@@ -624,3 +624,203 @@ Requirements:
 - Each recommendation must be actionable
 - Include timeline estimates
 - Address identified data gaps
+
+---
+
+## Visualization Requirements
+
+Reports must include ASCII visualizations for key data. These visualizations improve readability and allow quick comprehension of complex data.
+
+### 1. Validation Score Visualization
+
+Display the composite score as a visual radar/bar chart:
+
+```
+                    Disease Association (30)
+                            |
+                            28
+                            |
+    Safety (20) ----+-------+-------+---- Druggability (25)
+                    |       |       |
+                    12      |       24
+                    |       |       |
+            Clinical -------+------- Validation
+            Precedent               Evidence
+               (15)                  (10)
+                 15                    9
+
+    TOTAL SCORE: 88/100 | TIER 1 | GO
+```
+
+Alternative horizontal bar format:
+```
+    Validation Score Breakdown
+    ========================================
+    Disease Association  [████████████████████] 28/30 (93%)
+    Druggability         [███████████████████ ] 24/25 (96%)
+    Safety Profile       [████████████        ] 12/20 (60%)
+    Clinical Precedent   [████████████████████] 15/15 (100%)
+    Validation Evidence  [█████████████████   ]  9/10 (90%)
+    ========================================
+    TOTAL: 88/100 | TIER 1 | RECOMMENDATION: GO
+```
+
+### 2. Tissue Expression Heatmap
+
+Show expression levels across tissues with critical tissue highlighting:
+
+```
+    Tissue Expression Profile (TPM)
+    ========================================
+    Lung          [████████████████████] 120 | Disease-relevant
+    Liver         [████████████████    ]  96 | CRITICAL TISSUE
+    Kidney        [███████████         ]  68 | CRITICAL TISSUE
+    Heart         [████████            ]  48 | CRITICAL TISSUE
+    Brain         [████                ]  24 | CRITICAL TISSUE
+    Bone Marrow   [██                  ]  12 | CRITICAL TISSUE
+    Skin          [████████████        ]  72
+    Intestine     [██████              ]  36
+    ========================================
+    Expression Threshold: Low <20 | Medium 20-50 | High >50 TPM
+    Critical Tissues: Heart, Liver, Kidney, Brain, Bone Marrow
+```
+
+### 3. Disease Association Bar Chart
+
+Visualize top disease associations:
+
+```
+    Top Disease Associations (Open Targets Score)
+    ========================================
+    NSCLC           [████████████████████] 0.95 | [T1] Approved drugs
+    Glioblastoma    [████████████████    ] 0.82 | [T2] Somatic mutations
+    Colorectal      [█████████████████   ] 0.71 | [T3] Expression
+    Head & Neck     [█████████████       ] 0.55 | [T3] Association
+    Ovarian         [██████████          ] 0.42 | [T4] Text-mined
+    ========================================
+    Score Threshold: Strong >0.7 | Moderate 0.4-0.7 | Weak <0.4
+```
+
+### 4. Clinical Development Timeline
+
+Show clinical precedent over time:
+
+```
+    Clinical Development Timeline
+    ========================================
+    2003 |--[Gefitinib]--| FDA Approved (NSCLC)
+    2004 |--[Erlotinib]--| FDA Approved (NSCLC)
+    2013 |--[Afatinib]---| FDA Approved (NSCLC)
+    2015 |--[Osimertinib]| FDA Approved (NSCLC)
+    2020 |--[Amivantamab]| FDA Approved (NSCLC)
+    ========================================
+    Total: 5 FDA-approved drugs | First approval: 2003
+```
+
+### 5. Modality Comparison Chart
+
+When multiple modalities assessed:
+
+```
+    Modality Tractability Comparison
+    ========================================
+    Small Molecule    [████████████████████] 92/100 | BEST MATCH
+    Antibody          [██████████████████  ] 85/100 |
+    PROTAC            [█████████████████   ] 80/100 |
+    Gene Therapy      [███████████         ] 55/100 |
+    RNA Therapeutic   [███████████████     ] 68/100 |
+    Cell Therapy      [██████████████      ] 72/100 |
+    ========================================
+    Recommended Modality: Small Molecule
+```
+
+---
+
+## Interpretation Requirements
+
+Every data section must include interpretation that connects findings to validation decisions. DO NOT simply list data without context.
+
+### Required Interpretation Elements
+
+**1. What the data means**:
+- Explain significance of findings
+- Compare to benchmark targets
+- Identify implications for drug development
+
+**2. How it affects validation**:
+- Impact on scoring
+- Risk considerations
+- Opportunities identified
+
+**3. Recommended actions**:
+- Next steps justified by data
+- Gaps to address
+- Experiments to prioritize
+
+### Example Interpretation Formats
+
+**For Structural Biology Section**:
+```markdown
+### 3.5 Structural Druggability Assessment
+
+[Data tables...]
+
+**Interpretation**: The availability of 150+ PDB structures with resolutions
+better than 2.5A provides a strong foundation for structure-based drug design.
+The presence of multiple co-crystal structures with diverse chemotypes
+demonstrates tractability and de-risks lead identification. However, the
+predominance of ATP-competitive binding modes suggests potential selectivity
+challenges across the kinome. The conserved cysteine at position 797 offers
+an opportunity for covalent inhibitor development, which could provide
+differentiation from existing approved drugs.
+
+**Impact on Validation**: +8 points for structural tractability. The structural
+data supports Tier 1 druggability assessment for small molecules.
+
+**Recommendation**: Prioritize type-II or allosteric binding modes for
+selectivity; evaluate covalent inhibitor approach for resistant mutations.
+```
+
+**For Safety Section**:
+```markdown
+### 10.4 Safety Liabilities Summary
+
+[Data tables...]
+
+**Interpretation**: The ubiquitous expression pattern across critical tissues
+(heart, liver, kidney, brain) presents a significant safety challenge. The
+mouse knockout phenotype of embryonic lethality confirms target essentiality,
+which may limit therapeutic window. However, the manageable adverse event
+profile of approved drugs (rash, diarrhea - primarily on-target) demonstrates
+that modulation is feasible with appropriate patient management strategies.
+
+**Impact on Validation**: -8 points for safety profile. The essentiality
+concern reduces the safety score to the lower tier. However, clinical
+precedent demonstrates manageable toxicity.
+
+**Recommendation**: Implement patient stratification based on predictive
+biomarkers; develop targeted delivery approaches to improve therapeutic
+index; establish clear safety monitoring protocols.
+```
+
+**For Clinical Precedent Section**:
+```markdown
+### 11.3 Clinical Precedent Score
+
+[Data tables...]
+
+**Interpretation**: With 5 FDA-approved drugs and multiple ongoing clinical
+trials, this target has exceptional clinical validation. The timeline from
+first approval (2003) to latest approval (2020) shows sustained pharmaceutical
+interest. However, this also indicates a crowded competitive landscape that
+requires clear differentiation strategy. The focus on NSCLC leaves opportunities
+in other approved indications (glioblastoma, colorectal) that are supported
+by genetic evidence.
+
+**Impact on Validation**: Maximum 15/15 points for clinical precedent. This
+is a Tier 1 validated target by clinical standards.
+
+**Recommendation**: For new programs, consider: (1) next-generation inhibitors
+for resistance mutations, (2) combination strategies with immunotherapy,
+(3) expansion to other indications with genetic support.
+```

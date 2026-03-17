@@ -298,3 +298,215 @@ Worked examples demonstrating the target validation pipeline.
 
 **Tier**: 2 (CONDITIONAL GO)
 **Recommendation**: Good PROTAC target with validated binders. Multiple clinical PROTACs in development. Safety concerns due to essentiality - consider selective degradation approaches.
+
+---
+
+## Example 6: Gene Therapy Target Assessment
+
+**Input**: `target="GAA", disease="Pompe disease", modality="gene_therapy"`
+
+### Phase 0: Target Disambiguation
+
+| Identifier Type | Value |
+|-----------------|-------|
+| Gene Symbol | GAA |
+| UniProt Accession | P10253 |
+| Ensembl Gene ID | ENSG00000171298 |
+| Target Class | Enzyme (Lysosomal acid alpha-glucosidase) |
+
+### Modality-Specific Assessment
+
+| Sub-score | Points | Evidence |
+|-----------|--------|----------|
+| Tissue Promoter | 10/10 | Liver-specific promoter available for systemic delivery [T1] |
+| AAV Tropism | 8/10 | AAV9 crosses BBB; AAV8 targets liver effectively [T1] |
+| Immunogenicity | 6/10 | Pre-existing antibodies to GAA reported in some patients [T2] |
+
+### Composite Score (Gene Therapy Modality)
+
+| Dimension | Score | Max |
+|-----------|-------|-----|
+| Disease Association | 30 | 30 |
+| Druggability (GT-adjusted) | 18 | 25 |
+| Safety Profile | 18 | 20 |
+| Clinical Precedent | 12 | 15 |
+| Validation Evidence | 9 | 10 |
+| **Total** | **87** | **100** |
+
+**Tier**: 1 (GO)
+**Recommendation**: Excellent gene therapy target. ERT (enzyme replacement therapy) validates target; gene therapy offers improved tissue distribution and reduced immunogenicity.
+
+---
+
+## Example 7: RNA Therapeutic Target Assessment
+
+**Input**: `target="PCSK9", disease="hypercholesterolemia", modality="rna_therapeutic"`
+
+### Modality-Specific Assessment
+
+| Sub-score | Points | Evidence |
+|-----------|--------|----------|
+| Sequence Accessibility | 8/10 | siRNA designs published; accessible target site identified [T1] |
+| Off-target Potential | 7/10 | Low homology family; some cross-reactivity possible [T2] |
+| Tissue Accessibility | 10/10 | Liver-expressed; GalNAc conjugation validated [T1] |
+
+### Composite Score (RNA Therapeutic Modality)
+
+| Dimension | Score | Max |
+|-----------|-------|-----|
+| Disease Association | 28 | 30 |
+| Druggability (RNA-adjusted) | 20 | 25 |
+| Safety Profile | 16 | 20 |
+| Clinical Precedent | 15 | 15 |
+| Validation Evidence | 8 | 10 |
+| **Total** | **87** | **100** |
+
+**Tier**: 1 (GO)
+**Recommendation**: Validated RNA therapeutic target (inclisiran approved). Strong genetic validation from LOF mutations. Liver accessibility enables GalNAc conjugation.
+
+---
+
+## Example 8: Cell Therapy Target Assessment
+
+**Input**: `target="CD19", disease="B-cell lymphoma", modality="cell_therapy"`
+
+### Modality-Specific Assessment
+
+| Sub-score | Points | Evidence |
+|-----------|--------|----------|
+| Tumor Specificity | 10/10 | Expressed on B-cells and B-cell malignancies; not on vital organs [T1] |
+| Exhaustion Resistance | 7/10 | CD19 CAR-T shows durable responses; some relapse reported [T2] |
+| Heterogeneity | 6/10 | CD19 loss variants identified in 10-20% of relapses [T2] |
+
+### Composite Score (Cell Therapy Modality)
+
+| Dimension | Score | Max |
+|-----------|-------|-----|
+| Disease Association | 28 | 30 |
+| Druggability (CT-adjusted) | 22 | 25 |
+| Safety Profile | 15 | 20 |
+| Clinical Precedent | 15 | 15 |
+| Validation Evidence | 9 | 10 |
+| **Total** | **89** | **100** |
+
+**Tier**: 1 (GO)
+**Recommendation**: Benchmark CAR-T target with 6 FDA-approved products. Consider bispecific or dual-target approaches to address CD19-negative relapse.
+
+---
+
+## Example 9: ADC Target Assessment
+
+**Input**: `target="HER2", disease="breast cancer", modality="adc"`
+
+### Modality-Specific Assessment
+
+| Sub-score | Points | Evidence |
+|-----------|--------|----------|
+| Internalization Rate | 10/10 | Rapid internalization documented; enhanced by trastuzumab binding [T1] |
+| Tumor Selectivity | 8/10 | HER2+ tumors show high expression; low normal tissue [T1] |
+| Shed Antigen | 4/10 | Circulating HER2 extracellular domain detected [T2] |
+
+### Composite Score (ADC Modality)
+
+| Dimension | Score | Max |
+|-----------|-------|-----|
+| Disease Association | 28 | 30 |
+| Druggability (ADC-adjusted) | 23 | 25 |
+| Safety Profile | 14 | 20 |
+| Clinical Precedent | 15 | 15 |
+| Validation Evidence | 9 | 10 |
+| **Total** | **89** | **100** |
+
+**Tier**: 1 (GO)
+**Recommendation**: Validated ADC target (T-DM1, T-DXd approved). High internalization rate supports payload delivery. Consider next-gen payloads for resistance.
+
+---
+
+## Example Reports with Visualizations
+
+### EGFR Full Report - Executive Summary Visualization
+
+```
+    VALIDATION SCORE BREAKDOWN
+    ========================================
+    Disease Association  [████████████████████] 28/30 (93%)
+    Druggability         [████████████████████] 25/25 (100%)
+    Safety Profile       [████████████        ] 12/20 (60%)
+    Clinical Precedent   [████████████████████] 15/15 (100%)
+    Validation Evidence  [████████████████████] 10/10 (100%)
+    ========================================
+    TOTAL: 90/100 | TIER 1 | RECOMMENDATION: GO
+
+
+    TISSUE EXPRESSION HEATMAP
+    ========================================
+    Lung          [████████████████████] 120 | DISEASE-RELEVANT
+    Liver         [████████████████    ]  96 | *CRITICAL*
+    Kidney        [███████████         ]  68 | *CRITICAL*
+    Heart         [████████            ]  48 | *CRITICAL*
+    Brain         [████                ]  24 | *CRITICAL*
+    Bone Marrow   [██                  ]  12 | *CRITICAL*
+    Skin          [████████████        ]  72 | ADR-RELATED
+    ========================================
+
+
+    CLINICAL DEVELOPMENT TIMELINE
+    ========================================
+    2003 |--[Gefitinib]----| FDA Approved (NSCLC)
+    2004 |--[Erlotinib]----| FDA Approved (NSCLC)
+    2013 |--[Afatinib]-----| FDA Approved (NSCLC)
+    2015 |--[Osimertinib]--| FDA Approved (NSCLC)
+    2020 |--[Amivantamab]--| FDA Approved (NSCLC)
+    2021 |--[Mobocertinib]-| FDA Approved (NSCLC)
+    ========================================
+    Total: 6 FDA-approved drugs | First approval: 2003
+
+
+    MODALITY COMPARISON
+    ========================================
+    Small Molecule    [████████████████████] 92/100 | BEST MATCH
+    Antibody          [███████████████████ ] 88/100 |
+    ADC               [██████████████████  ] 85/100 |
+    PROTAC            [█████████████████   ] 80/100 |
+    Bispecific        [██████████████████  ] 86/100 |
+    Gene Therapy      [████████████        ] 60/100 |
+    RNA Therapeutic   [██████████████      ] 70/100 |
+    ========================================
+    Recommended: Small Molecule (existing approvals) or Bispecific (differentiation)
+```
+
+### STK33 Understudied Kinase - Visualization
+
+```
+    VALIDATION SCORE BREAKDOWN
+    ========================================
+    Disease Association  [██████              ]  9/30 (30%)
+    Druggability         [████████            ] 10/25 (40%)
+    Safety Profile       [███████████████     ] 15/20 (75%)
+    Clinical Precedent   [                    ]  0/15 (0%)
+    Validation Evidence  [                    ]  0/10 (0%)
+    ========================================
+    TOTAL: 34/100 | TIER 4 | RECOMMENDATION: NO-GO
+
+
+    DATA GAPS IDENTIFIED
+    ========================================
+    Section              | Expected  | Actual    | Gap
+    ---------------------|-----------|-----------|------------------
+    Disease Association  | >0.7      | 0.45      | Weak evidence
+    Chemical Matter      | Compounds | None      | No known ligands
+    Functional Studies   | Validated | None      | Unstudied
+    Clinical Pipeline    | Active    | None      | Tdark target
+    ========================================
+
+
+    RECOMMENDED VALIDATION EXPERIMENTS
+    ========================================
+    Priority | Experiment                          | Timeline
+    ---------|-------------------------------------|----------
+    HIGH     | CRISPR screen in cancer cell lines  | 2-3 months
+    HIGH     | Kinase activity assay development   | 1-2 months
+    MEDIUM   | Chemical probe development          | 6-12 months
+    LOW      | Mouse KO phenotype analysis         | 3-6 months
+    ========================================
+```

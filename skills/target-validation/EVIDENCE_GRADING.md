@@ -8,16 +8,16 @@ Evidence grading system and completeness requirements for target validation repo
 
 | Tier | Symbol | Criteria | Examples |
 |------|--------|----------|----------|
-| **T1** | ⭐⭐⭐ | Direct mechanistic evidence, human clinical proof | CRISPR KO in patients, FDA-approved drug mechanism, crystal structure with mechanism, patient mutation with functional validation |
-| **T2** | ⭐⭐ | Functional studies, model organism validation | siRNA phenotype, mouse KO, biochemical assay, CRISPR screen hit |
-| **T3** | ⭐ | Association, screen hits, computational prediction | GWAS hit, DepMap essentiality, expression correlation, eQTL |
-| **T4** | - | Mention, review, text-mined, predicted | Review article, database annotation, computational prediction, homology inference |
+| **T1** | [T1] | Direct mechanistic evidence, human clinical proof | CRISPR KO in patients, FDA-approved drug mechanism, crystal structure with mechanism, patient mutation with functional validation |
+| **T2** | [T2] | Functional studies, model organism validation | siRNA phenotype, mouse KO, biochemical assay, CRISPR screen hit |
+| **T3** | [T3] | Association, screen hits, computational prediction | GWAS hit, DepMap essentiality, expression correlation, eQTL |
+| **T4** | [T4] | Mention, review, text-mined, predicted | Review article, database annotation, computational prediction, homology inference |
 
 ---
 
 ## Tier Assignment Guidelines
 
-### T1 (⭐⭐⭐) - Clinical/Mechanistic Proof
+### T1 ([T1]) - Clinical/Mechanistic Proof
 
 Assign T1 when evidence directly demonstrates:
 - Human clinical validation (FDA-approved drug for target)
@@ -28,11 +28,11 @@ Assign T1 when evidence directly demonstrates:
 
 **Citation format**:
 ```markdown
-EGFR mutations cause lung adenocarcinoma [⭐⭐⭐: PMID:15118125, activating mutations
+EGFR mutations cause lung adenocarcinoma [[T1]: PMID:15118125, activating mutations
 in patients with functional validation]. *Source: ClinVar, CIViC*
 ```
 
-### T2 (⭐⭐) - Functional Validation
+### T2 ([T2]) - Functional Validation
 
 Assign T2 when evidence shows:
 - siRNA knockdown with phenotype in disease-relevant cells
@@ -43,11 +43,11 @@ Assign T2 when evidence shows:
 
 **Citation format**:
 ```markdown
-EGFR knockout reduces tumor growth in mouse xenograft models [⭐⭐: PMID:12345678,
+EGFR knockout reduces tumor growth in mouse xenograft models [[T2]: PMID:12345678,
 CRISPR KO in A549 xenografts]. *Source: DepMap, Literature*
 ```
 
-### T3 (⭐) - Association/Computational
+### T3 ([T3]) - Association/Computational
 
 Assign T3 when evidence shows:
 - GWAS association with disease
@@ -58,7 +58,7 @@ Assign T3 when evidence shows:
 
 **Citation format**:
 ```markdown
-EGFR amplification associated with glioblastoma [⭐: TCGA, 40% amplification rate].
+EGFR amplification associated with glioblastoma [[T3]: TCGA, 40% amplification rate].
 *Source: cBioPortal*
 ```
 
@@ -73,7 +73,7 @@ Assign T4 when evidence is:
 
 **Citation format**:
 ```markdown
-EGFR implicated in breast cancer progression [T4: Review article, PMID:11111111].
+EGFR implicated in breast cancer progression [[T4]: Review article, PMID:11111111].
 *Source: PubMed*
 ```
 
@@ -240,9 +240,9 @@ Evidence tier affects scoring confidence:
 
 | Disease | Association Score | Evidence Types | EFO ID | Evidence Tier |
 |---------|-------------------|----------------|--------|---------------|
-| Non-small cell lung cancer | 0.95 | Known_drug, Somatic_mutation | EFO_0003060 | ⭐⭐⭐ |
-| Glioblastoma | 0.82 | Somatic_mutation, Genetic_association | EFO_0000519 | ⭐⭐ |
-| Colorectal carcinoma | 0.71 | RNA_expression, Genetic_association | EFO_0000518 | ⭐ |
+| Non-small cell lung cancer | 0.95 | Known_drug, Somatic_mutation | EFO_0003060 | [T1] |
+| Glioblastoma | 0.82 | Somatic_mutation, Genetic_association | EFO_0000519 | [T2] |
+| Colorectal carcinoma | 0.71 | RNA_expression, Genetic_association | EFO_0000518 | [T3] |
 
 ---
 **Evidence Quality for this Section**: Strong

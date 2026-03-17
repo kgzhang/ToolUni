@@ -1,6 +1,6 @@
 ---
 name: target-validation
-description: Comprehensive target validation assistant - from biological intelligence to validation decisions in one assessment. Integrates protein information, disease associations, druggability, safety, and clinical data to generate quantitative scoring (0-100) with GO/NO-GO recommendations. Auto-discovers disease associations, supports multi-modality assessment (small molecule/antibody/PROTAC), outputs integrated report and structured data. Use for target validation, prioritization, competitive analysis.
+description: Comprehensive target validation assistant - from biological intelligence to validation decisions in one assessment. Integrates protein information, disease associations, druggability, safety, and clinical data to generate quantitative scoring (0-100) with GO/NO-GO recommendations. Auto-discovers disease associations, supports multi-modality assessment (10+ modalities), outputs integrated report with visualizations and structured data. Use for target validation, prioritization, competitive analysis.
 ---
 
 # Target Validation Pipeline
@@ -51,7 +51,7 @@ Validate drug target hypotheses using multi-dimensional computational evidence b
 | Parameter | Required | Type | Description | Example |
 |-----------|----------|------|-------------|---------|
 | **target** | Yes | string | Gene symbol, protein name, or UniProt ID | `EGFR`, `P00533`, `KRAS` |
-| **modality** | No | string | Preferred therapeutic modality | `small molecule`, `antibody`, `PROTAC`, `all` (default) |
+| **modality** | No | string | Preferred therapeutic modality | `small_molecule`, `antibody`, `protac`, `gene_therapy`, `rna_therapeutic`, `cell_therapy`, `peptide`, `bispecific`, `adc`, `all` (default) |
 | **disease** | No | string | Disease context for targeted analysis | `Non-small cell lung cancer` |
 | **output_format** | No | string | Output format preference | `markdown` (default), `json`, `both` |
 
@@ -307,12 +307,34 @@ Generate actionable recommendations:
 
 ## Modality-Specific Assessment
 
-| Modality | Focus Areas | Tractability Check |
-|----------|-------------|-------------------|
-| `small molecule` | Binding pockets, oral tractability buckets 1-7 | SM tractability + high-res co-crystal bonus |
-| `antibody` | Surface accessibility, extracellular domain | AB tractability + cell surface expression |
-| `PROTAC` | Ligandability, E3 recruitment, lysines | Known binders + intracellular location |
-| `all` | Report all scores, highlight best | Compare across modalities |
+### Supported Modalities
+
+| Modality | Code | Focus Areas | Tractability Criteria |
+|----------|------|-------------|----------------------|
+| **Small Molecule** | `small_molecule` | Binding pockets, oral bioavailability, BBB permeability | SM tractability bucket 1-7, co-crystal structures, Lipinski compliance |
+| **Monoclonal Antibody** | `antibody` | Surface accessibility, extracellular domain, Fc engineering | AB tractability bucket, cell surface expression, epitope uniqueness |
+| **PROTAC** | `protac` | Known binders, E3 ligase recruitment, linker attachment, surface lysines | Ligand availability, degradation feasibility, ternary complex formation |
+| **Gene Therapy** | `gene_therapy` | Disease-relevant tissues, promoter selection, delivery vector | Tissue specificity, AAV tropism, immunogenicity profile |
+| **RNA Therapeutic** | `rna_therapeutic` | Sequence accessibility, off-target potential, chemical modification | siRNA/ASO design potential, mRNA stability, delivery to target tissue |
+| **Cell Therapy** | `cell_therapy` | Surface markers, CAR design, persistence, trafficking | Target specificity on disease cells, tonic signaling risk, exhaustion markers |
+| **Peptide Therapeutic** | `peptide` | Binding interface, stability, membrane permeability | Peptide binding site, protease resistance, cell penetration |
+| **Bispecific Antibody** | `bispecific` | Dual target engagement, format selection, bridging geometry | Two target accessibility, appropriate spatial arrangement |
+| **ADC** | `adc` | Internalization rate, linker stability, payload selection | Surface expression, endocytosis efficiency, bystander effect |
+| **All Modalities** | `all` | Compare scores across all modalities | Report best 3 modalities with detailed assessment |
+
+### Modality-Specific Scoring Adjustments
+
+| Modality | Bonus Criteria | Penalty Criteria |
+|----------|---------------|------------------|
+| Small Molecule | +2 for high-res co-crystal; +1 for known oral drug | -2 for shallow pockets; -1 for PPI target |
+| Antibody | +2 for confirmed surface expression; +1 for unique epitope | -2 for intracellular target; -1 for high homology paralogs |
+| PROTAC | +2 for known binders; +1 for multiple E3 options | -2 for membrane proteins; -1 for disordered regions |
+| Gene Therapy | +2 for tissue-specific promoter; +1 for AAV delivery data | -2 for ubiquitous essential gene; -1 for immune privilege |
+| RNA Therapeutic | +2 for validated siRNA/ASO; +1 for tissue accessibility | -2 for high homology family; -1 for nuclear localization |
+| Cell Therapy | +2 for tumor-specific antigen; +1 for exhaustion resistance | -2 for vital normal tissue expression; -1 for heterogeneity |
+| Peptide | +2 for structural constraint; +1 for cell-penetrating potential | -2 for protease-sensitive sites; -1 for rapid clearance |
+| Bispecific | +2 for synergistic targets; +1 for optimal geometry | -2 for competing epitopes; -1 for steric hindrance |
+| ADC | +2 for rapid internalization; +1 for tumor-selective expression | -2 for slow turnover; -1 for shed antigen |
 
 ---
 
@@ -320,10 +342,10 @@ Generate actionable recommendations:
 
 | Tier | Symbol | Criteria | Examples |
 |------|--------|----------|----------|
-| **T1** | ⭐⭐⭐ | Direct mechanistic, human clinical proof | FDA-approved drug, crystal structure, patient mutation |
-| **T2** | ⭐⭐ | Functional studies, model organism | siRNA phenotype, mouse KO, biochemical assay |
-| **T3** | ⭐ | Association, screen hits, computational | GWAS hit, DepMap essentiality, expression correlation |
-| **T4** | - | Mention, review, predicted | Review article, database annotation, AlphaFold |
+| **T1** | [T1] | Direct mechanistic, human clinical proof | FDA-approved drug, crystal structure, patient mutation |
+| **T2** | [T2] | Functional studies, model organism | siRNA phenotype, mouse KO, biochemical assay |
+| **T3** | [T3] | Association, screen hits, computational | GWAS hit, DepMap essentiality, expression correlation |
+| **T4** | [T4] | Mention, review, predicted | Review article, database annotation, AlphaFold |
 
 See [EVIDENCE_GRADING.md](EVIDENCE_GRADING.md) for detailed tier definitions.
 
@@ -339,6 +361,100 @@ Use the full template from [REPORT_TEMPLATE.md](REPORT_TEMPLATE.md). Key section
 - Part B: Validation Assessment (6 sections)
 - Part C: Synthesis & Recommendations (4 sections)
 - Appendices (data sources, completeness, gaps, JSON)
+
+### Visualization Requirements
+
+Reports must include ASCII visualizations for key data:
+
+**1. Validation Score Radar Chart**
+```
+                    Disease Association (30)
+                            |
+                            28
+                            |
+    Safety (20) ----+-------+-------+---- Druggability (25)
+                    |       |       |
+                    12      |       24
+                    |       |       |
+            Clinical -------+------- Validation
+            Precedent               Evidence
+               (15)                  (10)
+                 15                    9
+
+    TOTAL SCORE: 88/100 | TIER 1 | GO
+```
+
+**2. Expression Heatmap**
+```
+    Tissue Expression Profile (TPM)
+    ========================================
+    Lung          [████████████████████] 120
+    Liver         [████████████████    ] 96
+    Kidney        [███████████         ] 68
+    Heart         [████████            ] 48
+    Brain         [████                ] 24
+    Bone Marrow   [██                  ] 12
+    ========================================
+    Critical tissues: Heart, Liver, Kidney, Brain marked
+```
+
+**3. Disease Association Bar Chart**
+```
+    Top Disease Associations (Open Targets Score)
+    ========================================
+    NSCLC           [████████████████████] 0.95
+    Glioblastoma    [████████████████    ] 0.82
+    Colorectal      [█████████████       ] 0.71
+    Head & Neck     [██████████          ] 0.55
+    Ovarian         [███████             ] 0.38
+    ========================================
+```
+
+**4. Clinical Timeline**
+```
+    Clinical Development Timeline
+    ========================================
+    2003 |--[Gefitinib]--| FDA Approved (NSCLC)
+    2004 |--[Erlotinib]--| FDA Approved (NSCLC)
+    2013 |--[Afatinib]---| FDA Approved (NSCLC)
+    2015 |--[Osimertinib]| FDA Approved (NSCLC)
+    2020 |--[Amivantamab]| FDA Approved (NSCLC)
+    ========================================
+    5 FDA-approved drugs targeting this protein
+```
+
+### Interpretation Requirements
+
+Every data section must include interpretation paragraphs:
+
+**DO include**:
+- What the data means for drug development
+- Comparison to benchmark targets (well-validated vs. failed targets)
+- Implications for modality selection
+- Risk assessment with mitigation strategies
+- Recommended next steps with justification
+
+**DON'T**:
+- Present raw data tables without interpretation
+- List facts without connecting to validation decision
+- Omit context for why data matters
+- Use bullet points where narrative synthesis is needed
+
+**Example Interpretation Format**:
+```markdown
+### 9. Druggability Assessment
+
+[Data tables...]
+
+**Interpretation**: The target belongs to the kinase family, which has the
+highest success rate in drug development (>30% of approved drugs). The
+availability of 150+ PDB structures and 500+ known inhibitors significantly
+de-risks lead identification. However, the shallow ATP-binding pocket
+typical of this kinase subclass may require type-II or allosteric inhibitor
+strategies. The absence of covalent inhibitor structures suggests an
+opportunity for differentiated chemistry targeting the conserved cysteine
+residue at position 797.
+```
 
 ---
 
