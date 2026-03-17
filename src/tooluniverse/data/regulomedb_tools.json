@@ -1,0 +1,71 @@
+[
+  {
+    "type": "RegulomeDBRESTTool",
+    "name": "RegulomeDB_query_variant",
+    "description": "Query RegulomeDB for regulatory variant annotations using rsID",
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "rsid": {"type": "string", "description": "dbSNP rsID (e.g., 'rs4994', 'rs429358')"}
+      },
+      "required": ["rsid"]
+    },
+    "fields": {
+      "endpoint": "https://regulomedb.org/regulome-search/?regions={rsid}&genome=GRCh38",
+      "return_format": "JSON"
+    },
+    "return_schema": {
+      "oneOf": [
+        {
+          "type": "object",
+          "description": "Successful regulatory annotation",
+          "properties": {
+            "total": {"type": "integer", "description": "Number of variants matched"},
+            "results": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "chrom": {"type": "string"},
+                  "start": {"type": "integer"},
+                  "end": {"type": "integer"},
+                  "rsids": {"type": "array", "items": {"type": "string"}},
+                  "regulome_score": {
+                    "type": "object",
+                    "properties": {
+                      "ranking": {"type": "integer"},
+                      "probability": {"type": "number"}
+                    }
+                  },
+                  "features": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {"type": "string"},
+                        "value": {"type": "string"}
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "query_coordinates": {"type": "string"},
+            "genome": {"type": "string"}
+          }
+        },
+        {
+          "type": "object",
+          "description": "Error response",
+          "properties": {
+            "error": {"type": "string"}
+          }
+        }
+      ]
+    },
+    "test_examples": [
+      {"rsid": "rs4994"},
+      {"rsid": "rs429358"}
+    ]
+  }
+]
