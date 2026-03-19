@@ -1,10 +1,52 @@
 # Target Validation Report Template
 
-Full report template with all sections, completeness checklist, and section-specific guidance.
+This template defines the comprehensive report format for target validation reports, combining target intelligence and validation assessment into a unified structure.
 
 ---
 
-## Report Template
+## Report Structure Overview
+
+```
+Part A: Executive Summary
+  1. Executive Summary
+     - Validation Scorecard
+     - Key Findings
+     - Critical Risks
+     - Recommendation
+
+Part B: Target Intelligence
+  2. Target Identifiers
+  3. Basic Information
+  4. Structural Biology
+  5. Function & Pathways
+  6. Protein-Protein Interactions
+  7. Expression Profile
+  8. Genetic Variation & Disease
+
+Part C: Validation Assessment
+  9. Disease Association Scoring (0-30 pts)
+  10. Druggability Assessment (0-25 pts)
+  11. Safety Deep Analysis (0-20 pts)
+  12. Clinical Precedent (0-15 pts)
+  13. Validation Evidence (0-10 pts)
+  14. Validation Scorecard
+
+Part D: Synthesis & Recommendations
+  15. Validation Roadmap
+  16. Tool Compounds for Testing
+  17. Biomarker Strategy
+  18. Key Risks & Mitigations
+
+Appendices
+  A. Data Sources & Methodology
+  B. Completeness Checklist
+  C. Data Gaps & Limitations
+  D. Structured Data Export
+```
+
+---
+
+## Complete Report Template
 
 ```markdown
 # Target Validation Report: [FULL PROTEIN NAME]
@@ -13,78 +55,111 @@ Full report template with all sections, completeness checklist, and section-spec
 
 ---
 
-## Executive Summary
+## 1. Executive Summary
+
+[2-3 sentence overview covering: what the target is, primary function, druggability status, and key clinical relevance]
+
+**Bottom Line**: [One sentence: Is this a good drug target? Why/why not?]
 
 ### Target Validation Scorecard
 
-| Dimension | Score | Max |
-|-----------|-------|-----|
-| Disease Association | [XX] | 30 |
-| Druggability | [XX] | 25 |
-| Safety Profile | [XX] | 20 |
-| Clinical Precedent | [XX] | 15 |
-| Validation Evidence | [XX] | 10 |
-| **Total** | **[XX]** | **100** |
+| Dimension | Score | Max | Percentage | Evidence |
+|-----------|-------|-----|------------|----------|
+| Disease Association | [XX] | 30 | [XX%] | ★★★/★★/★ |
+| Druggability | [XX] | 25 | [XX%] | ★★★/★★/★ |
+| Safety Profile | [XX] | 20 | [XX%] | ★★★/★★/★ |
+| Clinical Precedent | [XX] | 15 | [XX%] | ★★★/★★/★ |
+| Validation Evidence | [XX] | 10 | [XX%] | ★★★/★★/★ |
+| **TOTAL** | **[XX]** | **100** | **[XX%]** | |
 
-**Priority Tier**: [Tier 1-4]
-**GO/NO-GO Recommendation**: [Recommendation]
+**Priority Tier**: [1-4]
+**GO/NO-GO Recommendation**: **[Recommendation]**
+
+### Visualization
+
+![Validation Score](figures/validation_score.png)
 
 ### Key Findings
 
-1. [Finding 1 with evidence tier]
+1. [Finding 1 with evidence tier T1-T4]
 2. [Finding 2 with evidence tier]
 3. [Finding 3 with evidence tier]
+4. [Finding 4 with evidence tier]
+5. [Finding 5 with evidence tier]
 
 ### Critical Risks
 
-- [Risk 1]
-- [Risk 2]
+- **[Risk Category]**: [Risk description with evidence tier] [T2]
+- **[Risk Category]**: [Risk description with evidence tier] [T3]
+
+### Key Strengths
+
+1. [Strength 1]
+2. [Strength 2]
+3. [Strength 3]
 
 ---
 
-## Part A: Target Intelligence
+## Part B: Target Intelligence
 
 ---
 
-## 1. Target Identifiers
+## 2. Target Identifiers
 
 | Identifier Type | Value | Database |
 |-----------------|-------|----------|
-| Gene Symbol | [SYMBOL] | HGNC |
+| Gene Symbol | [SYMBOL] | [HGNC/UniProt/MyGene] |
 | UniProt Accession | [P#####] | UniProtKB |
 | Ensembl Gene ID | [ENSG###] | Ensembl |
+| Ensembl (versioned) | [ENSG###.#] | Ensembl |
 | Entrez Gene ID | [#####] | NCBI Gene |
 | ChEMBL Target ID | [CHEMBL###] | ChEMBL |
 | HGNC ID | [HGNC:####] | HGNC |
 
+**Confidence Level**: [HIGH/MEDIUM/LOW]
+
 **Aliases**: [List all known aliases/synonyms]
 
 ---
+**Sources:**
+- UniProt: `UniProt_search_entries` (gene:[SYMBOL] AND organism_id:9606)
+- Ensembl: `ensembl_lookup_gene` ([ensembl_id])
+- ChEMBL: `ChEMBL_search_targets` ([symbol])
+---
 
-## 2. Basic Information
+## 3. Basic Information
 
-### 2.1 Protein Description
+### 3.1 Protein Description
 - **Recommended Name**: [Full protein name]
 - **Alternative Names**: [List]
 - **Gene Name**: [Symbol] ([Full gene name])
-- **Organism**: [Species] (Taxonomy ID: [####])
+- **Organism**: Homo sapiens (Taxonomy ID: 9606)
 - **Protein Length**: [###] amino acids
 - **Molecular Weight**: [###] kDa
 - **Isoforms**: [Number] known isoforms
 
-### 2.2 Protein Function
-[Detailed description of protein function - at least 3-4 sentences]
+### 3.2 Protein Function
+[Detailed description of protein function - at least 3-4 sentences covering:
+- Primary molecular function
+- Biological process involvement
+- Cellular role
+- Signaling pathway context]
 
-### 2.3 Subcellular Localization
+### 3.3 Subcellular Localization
 - **Primary Location**: [e.g., Plasma membrane]
 - **Additional Locations**: [List]
 - **Topology**: [e.g., Single-pass type I membrane protein]
 
 ---
+**Sources:**
+- UniProt: `UniProt_get_entry_by_accession` ([accession])
+- UniProt: `UniProt_get_function_by_accession` ([accession])
+- UniProt: `UniProt_get_subcellular_location_by_accession` ([accession])
+---
 
-## 3. Structural Biology
+## 4. Structural Biology
 
-### 3.1 Experimental Structures (PDB)
+### 4.1 Experimental Structures (PDB)
 
 | PDB ID | Resolution | Method | Ligand | Description |
 |--------|------------|--------|--------|-------------|
@@ -94,32 +169,47 @@ Full report template with all sections, completeness checklist, and section-spec
 **Best Resolution**: [#.#Å] ([PDB ID])
 **Structure Coverage**: [Complete/Partial - which domains?]
 
-### 3.2 AlphaFold Prediction
+### 4.2 AlphaFold Prediction
+
+![AlphaFold Model](https://alphafold.ebi.ac.uk/entry/[UNIPROT_ID])
+
 - **Available**: [Yes/No]
 - **Confidence**: [High/Medium/Low - pLDDT scores]
 - **Model URL**: [AlphaFold DB link]
 
-### 3.3 Domain Architecture
+### 4.3 Domain Architecture
 
 | Domain | Position | InterPro ID | Description |
 |--------|----------|-------------|-------------|
 | [Domain name] | [Start-End] | [IPR######] | [Function] |
 
-### 3.4 Key Structural Features
+### 4.4 Key Structural Features
 - **Active Sites**: [List with positions]
 - **Binding Sites**: [List - substrate, cofactor, drug binding]
-- **PTM Sites**: [Phosphorylation, glycosylation, etc.]
+- **PTM Sites**: [Phosphorylation, glycosylation, etc. with positions]
+- **Disulfide Bonds**: [List]
 
-### 3.5 Structural Druggability Assessment
-- **Binding Pockets**: [Identified pockets suitable for small molecules]
-- **Allosteric Sites**: [Known or predicted]
-- **Antibody Epitopes**: [Surface accessibility for biologics]
+### 4.5 Structural Druggability Assessment
+
+| Feature | Assessment | Evidence |
+|---------|------------|----------|
+| Binding Pockets | [Number/Quality] | [Source] [T2] |
+| Allosteric Sites | [Known/Predicted/None] | [Source] [T3] |
+| Antibody Epitopes | [Accessible/Limited] | [Surface accessibility] [T3] |
+
+**Structural Druggability Interpretation**:
+[Paragraph interpreting structural data for drug design - include implications for modality selection]
 
 ---
+**Sources:**
+- PDB: Cross-references from UniProt entry
+- AlphaFold: `alphafold_get_prediction` ([accession])
+- InterPro: `InterPro_get_protein_domains` ([accession])
+---
 
-## 4. Function & Pathways
+## 5. Function & Pathways
 
-### 4.1 Gene Ontology Annotations
+### 5.1 Gene Ontology Annotations
 
 **Molecular Function (MF)**:
 | GO Term | GO ID | Evidence |
@@ -136,41 +226,55 @@ Full report template with all sections, completeness checklist, and section-spec
 |---------|-------|----------|
 | [Term] | [GO:#######] | [IDA/IEA/etc.] |
 
-### 4.2 Pathway Involvement
+### 5.2 Pathway Involvement
 
-| Pathway | Database | Pathway ID |
-|---------|----------|------------|
-| [Pathway name] | [Reactome/KEGG/WikiPathways] | [ID] |
+| Pathway | Database | Pathway ID | Relevance |
+|---------|----------|------------|-----------|
+| [Pathway name] | [Reactome/KEGG/WikiPathways] | [ID] | [Disease relevance] |
 
-### 4.3 Functional Summary
+### 5.3 Functional Summary
 [Paragraph describing the target's role in cellular signaling, disease mechanisms, and biological importance]
 
 ---
+**Sources:**
+- GO: `GO_get_annotations_for_gene` ([gene_id])
+- Reactome: `Reactome_map_uniprot_to_pathways` ([uniprot_id])
+- WikiPathways: `WikiPathways_search` ([symbol])
+---
 
-## 5. Protein-Protein Interactions
+## 6. Protein-Protein Interactions
 
-### 5.1 Interaction Network Summary
+### 6.1 Interaction Network Summary
 - **Total Interactors (STRING, score >0.7)**: [###]
 - **Experimentally Validated (IntAct)**: [###]
 - **Complex Membership**: [List complexes]
 
-### 5.2 Top Interacting Partners
+### 6.2 Top Interacting Partners
 
 | Partner | Score | Interaction Type | Evidence | Biological Context |
 |---------|-------|------------------|----------|-------------------|
 | [Gene] | [0.###] | [Physical/Functional] | [Experimental/Predicted] | [Context] |
 
-### 5.3 Protein Complexes
+### 6.3 Protein Complexes
 
 | Complex Name | Members | Function |
 |--------------|---------|----------|
 | [Complex] | [List] | [Function] |
 
+### 6.4 Interaction Network Implications
+[Paragraph on network topology, hub status, and implications for drugging]
+
+---
+**Sources:**
+- STRING: `STRING_get_protein_interactions` ([[uniprot_id]], species=9606)
+- IntAct: `intact_get_interactions` ([uniprot_id])
 ---
 
-## 6. Expression Profile
+## 7. Expression Profile
 
-### 6.1 Tissue Expression (GTEx/HPA)
+### 7.1 Tissue Expression (GTEx/HPA)
+
+![Tissue Expression](figures/tissue_expression.png)
 
 | Tissue | Expression Level (TPM) | Specificity |
 |--------|------------------------|-------------|
@@ -178,137 +282,7 @@ Full report template with all sections, completeness checklist, and section-spec
 
 **Tissue Specificity Score**: [Score] ([Broadly expressed/Tissue-specific/Tissue-enriched])
 
-### 6.2 Cell Type Expression
-[Single-cell data if available]
-
-### 6.3 Disease-Relevant Expression
-
-| Cancer/Disease | Expression Change | Prognostic Value |
-|----------------|-------------------|------------------|
-| [Disease] | [Up/Down/Unchanged] | [Favorable/Unfavorable/None] |
-
----
-
-## 7. Genetic Variation & Disease
-
-### 7.1 Genetic Constraint Scores
-
-| Metric | Value | Interpretation |
-|--------|-------|----------------|
-| pLI | [0.##] | [Highly constrained/Tolerant] |
-| LOEUF | [0.##] | [Interpretation] |
-| Missense Z-score | [#.##] | [Interpretation] |
-| pRec | [0.##] | [Interpretation] |
-
-### 7.2 Disease Associations (Open Targets)
-
-| Disease | Association Score | Evidence Types | EFO ID |
-|---------|-------------------|----------------|--------|
-| [Disease] | [0.##] | [Genetic/Literature/etc.] | [EFO_#######] |
-
-### 7.3 Pathogenic Variants (ClinVar)
-
-#### Single Nucleotide Variants (SNVs)
-| Variant | Clinical Significance | Condition | Review Status |
-|---------|----------------------|-----------|---------------|
-| [p.XXX###YYY] | [Pathogenic/Likely pathogenic] | [Condition] | [Stars] |
-
-**Total Pathogenic SNVs**: [###]
-
-#### Copy Number Variants (CNVs)
-| Type | Region | Clinical Significance | Frequency |
-|------|--------|----------------------|-----------|
-| [Amplification/Deletion] | [Region] | [Significance] | [Frequency] |
-
-### 7.4 Cancer Mutations (COSMIC/cBioPortal)
-
-| Mutation | Frequency | Cancer Types | Functional Impact |
-|----------|-----------|--------------|-------------------|
-| [Mutation] | [#%] | [Cancers] | [Activating/Inactivating/Unknown] |
-
----
-
-## Part B: Validation Assessment
-
----
-
-## 8. Disease Association Scoring (0-30 pts)
-
-### 8.1 Genetic Evidence (0-10)
-
-| Evidence Type | Points | Source |
-|---------------|--------|--------|
-| GWAS associations | [X/6] | GWAS Catalog |
-| Rare variants | [X/2] | ClinVar |
-| Somatic mutations | [X/2] | cBioPortal |
-| Constraint scores | [X/3] | gnomAD |
-
-**Genetic Evidence Score**: [X/10]
-
-### 8.2 Literature Evidence (0-10)
-
-| Metric | Value | Points |
-|--------|-------|--------|
-| Total target+disease publications | [###] | [X/10] |
-| Recent 5-year trend | [Increasing/Stable/Declining] | - |
-
-**Literature Evidence Score**: [X/10]
-
-### 8.3 Pathway Evidence (0-10)
-
-| Disease | OpenTargets Score | Points |
-|---------|-------------------|--------|
-| [Disease] | [0.##] | [X/10] |
-
-**Pathway Evidence Score**: [X/10]
-
-**Total Disease Association Score**: [X/30]
-
----
-
-## 9. Druggability Assessment (0-25 pts)
-
-### 9.1 Structural Tractability (0-10)
-
-| Structure Source | Quality | Points |
-|------------------|---------|--------|
-| PDB structures | [Count, best resolution] | [X] |
-| AlphaFold | [pLDDT confidence] | [X] |
-| Binding pockets | [Number, quality] | [X] |
-
-**Structural Tractability Score**: [X/10]
-
-### 9.2 Chemical Matter (0-10)
-
-| Source | Compound Count | Best Affinity | Points |
-|--------|----------------|---------------|--------|
-| ChEMBL | [###] | [IC50/Ki] | [X] |
-| BindingDB | [###] | [Ki/Kd] | [X] |
-| PubChem BioAssay | [###] | [IC50] | [X] |
-
-**Chemical Matter Score**: [X/10]
-
-### 9.3 Target Class Bonus (0-5)
-
-| Target Class | Points | Rationale |
-|--------------|--------|-----------|
-| [Class] | [X/5] | [Reason] |
-
-### 9.4 Modality-Specific Tractability
-
-| Modality | Tractability | Bucket | Evidence |
-|----------|--------------|--------|----------|
-| Small Molecule | [✅/⚠️/❌] | [1-10] | [Evidence] |
-| Antibody | [✅/⚠️/❌] | [1-10] | [Evidence] |
-| PROTAC | [✅/⚠️/❌] | [1-10] | [Evidence] |
-
-**Total Druggability Score**: [X/25]
-
----
-
-## 10. Safety Deep Analysis (0-20 pts)
-
-### 10.1 Tissue Expression Selectivity (0-5)
+### 7.2 Critical Tissue Expression
 
 | Critical Tissue | Expression Level | Risk Level |
 |-----------------|------------------|------------|
@@ -318,64 +292,268 @@ Full report template with all sections, completeness checklist, and section-spec
 | Brain | [High/Med/Low/None] | [Risk] |
 | Bone Marrow | [High/Med/Low/None] | [Risk] |
 
-**Expression Selectivity Score**: [X/5]
+### 7.3 Cell Type Expression
+[Single-cell data if available - top cell types]
 
-### 10.2 Genetic Validation (0-10)
+### 7.4 Disease-Relevant Expression
+
+| Cancer/Disease | Expression Change | Prognostic Value |
+|----------------|-------------------|------------------|
+| [Disease] | [Up/Down/Unchanged] | [Favorable/Unfavorable/None] |
+
+### 7.5 Expression-Based Druggability
+- **Tumor vs Normal**: [Differential expression ratio]
+- **Therapeutic Window**: [Assessment based on expression pattern]
+
+---
+**Sources:**
+- GTEx: `GTEx_get_median_gene_expression` ([gencode_id])
+- HPA: `HPA_get_comprehensive_gene_details_by_ensembl_id` ([ensembl_id])
+---
+
+## 8. Genetic Variation & Disease
+
+### 8.1 Genetic Constraint Scores
+
+| Metric | Value | Interpretation |
+|--------|-------|----------------|
+| pLI | [0.##] | [Highly constrained (pLI > 0.9 means LOF intolerant)/Moderately constrained/Tolerant] |
+| LOEUF | [0.##] | [Interpretation] |
+| Missense Z-score | [#.##] | [Interpretation] |
+| pRec | [0.##] | [Interpretation] |
+
+### 8.2 Disease Associations (Open Targets)
+
+![Disease Associations](figures/disease_associations.png)
+
+| Disease | Association Score | Evidence Types | Evidence Tier | EFO ID |
+|---------|-------------------|----------------|---------------|--------|
+| [Disease] | [0.##] | [Genetic/Literature/etc.] | [T1-T4] | [EFO_#######] |
+
+### 8.3 Pathogenic Variants (ClinVar)
+
+#### Single Nucleotide Variants (SNVs)
+| Variant | Clinical Significance | Condition | Review Status |
+|---------|----------------------|-----------|---------------|
+| [p.XXX###YYY] | [Pathogenic/Likely pathogenic] | [Condition] | [Stars] |
+
+**Total ClinVar Entries**: [###]
+**Pathogenic/Likely Pathogenic**: [###]
+
+#### Copy Number Variants (CNVs)
+| Type | Region | Clinical Significance | Frequency |
+|------|--------|----------------------|-----------|
+| [Amplification/Deletion] | [Region] | [Significance] | [Frequency] |
+
+### 8.4 Cancer Mutations (COSMIC/cBioPortal)
+
+| Mutation | Frequency | Cancer Types | Functional Impact |
+|----------|-----------|--------------|-------------------|
+| [Mutation] | [#%] | [Cancers] | [Activating/Inactivating/Unknown] |
+
+### 8.5 GWAS Associations
+
+| Trait | SNPs | P-value | OR/Beta |
+|-------|------|---------|---------|
+| [Trait] | [rs###] | [##e-##] | [OR] |
+
+### 8.6 Genetic Evidence Summary
+[Paragraph summarizing genetic validation of the target - include constraint implications and disease relevance]
+
+---
+**Sources:**
+- gnomAD: `gnomad_get_gene_constraints` ([gene_symbol])
+- ClinVar: `clinvar_search_variants` ([gene])
+- OpenTargets: `OpenTargets_get_diseases_phenotypes_by_target_ensembl` ([ensembl_id])
+- GWAS: `gwas_get_snps_for_gene` ([mapped_gene])
+---
+
+## Part C: Validation Assessment
+
+---
+
+## 9. Disease Association Scoring (0-30 pts)
+
+### 9.1 Genetic Evidence (0-10)
+
+| Evidence Type | Points | Source |
+|---------------|--------|--------|
+| GWAS associations | [X/6] | GWAS Catalog |
+| Rare variants (ClinVar) | [X/2] | ClinVar |
+| Somatic mutations | [X/2] | cBioPortal/COSMIC |
+| Constraint scores (gnomAD) | [X/3] | gnomAD |
+
+**Genetic Evidence Score**: [X]/10
+
+### 9.2 Literature Evidence (0-10)
+
+| Metric | Value | Points |
+|--------|-------|--------|
+| Total target+disease publications | [###] | [X/10] |
+| Recent 5-year trend | [Increasing/Stable/Declining] | - |
+| Key publications count | [###] | - |
+
+**Literature Evidence Score**: [X]/10
+
+### 9.3 Pathway Evidence (0-10)
+
+| Disease | OpenTargets Score | Points |
+|---------|-------------------|--------|
+| [Disease] | [0.##] | [X/10] |
+
+**Pathway Evidence Score**: [X]/10
+
+**Total Disease Association Score**: [X]/30
+
+---
+
+## 10. Druggability Assessment (0-25 pts)
+
+### 10.1 Structural Tractability (0-10)
+
+| Structure Source | Quality | Points |
+|------------------|---------|--------|
+| PDB structures | [Count, best resolution] | [X] |
+| AlphaFold | [pLDDT confidence] | [X] |
+| Binding pockets | [Number, quality] | [X] |
+
+**Structural Tractability Score**: [X]/10
+
+### 10.2 Chemical Matter (0-10)
+
+| Source | Compound Count | Best Affinity | Points |
+|--------|----------------|---------------|--------|
+| ChEMBL | [###] | [IC50/Ki] | [X] |
+| BindingDB | [###] | [Ki/Kd] | [X] |
+| PubChem BioAssay | [###] | [IC50] | [X] |
+
+**Chemical Matter Score**: [X]/10
+
+### 10.3 Target Class Bonus (0-5)
+
+| Target Class | Points | Rationale |
+|--------------|--------|-----------|
+| [Class] | [X/5] | [Reason] |
+
+### 10.4 Modality-Specific Tractability
+
+| Modality | Tractability | Bucket | Evidence |
+|----------|--------------|--------|----------|
+| Small Molecule | [✅/⚠️/❌] | [1-10] | [Evidence] |
+| Antibody | [✅/⚠️/❌] | [1-10] | [Evidence] |
+| PROTAC | [✅/⚠️/❌] | [1-10] | [Evidence] |
+
+### 10.5 Chemical Probes
+
+| Probe | Selectivity | Use | Source |
+|-------|-------------|-----|--------|
+| [Probe] | [Selective/Broad] | [Recommended use] | [SGC/etc.] |
+
+**Total Druggability Score**: [X]/25
+
+---
+**Sources:**
+- OpenTargets: `OpenTargets_get_target_tractability_by_ensemblID` ([ensembl_id])
+- ChEMBL: `ChEMBL_get_target_activities` ([target_chembl_id])
+- BindingDB: `BindingDB_get_ligands_by_uniprot` ([uniprot])
+---
+
+## 11. Safety Deep Analysis (0-20 pts)
+
+![Safety Dashboard](figures/safety_dashboard.png)
+
+### 11.1 Tissue Expression Selectivity (0-5)
+
+| Critical Tissue | Expression Level | Risk Level |
+|-----------------|------------------|------------|
+| Heart | [High/Med/Low/None] | [Risk] |
+| Liver | [High/Med/Low/None] | [Risk] |
+| Kidney | [High/Med/Low/None] | [Risk] |
+| Brain | [High/Med/Low/None] | [Risk] |
+| Bone Marrow | [High/Med/Low/None] | [Risk] |
+
+**Expression Selectivity Score**: [X]/5
+
+### 11.2 Genetic Validation (0-10)
 
 | Model | Phenotype | Viability | Points |
 |-------|-----------|-----------|--------|
 | Mouse KO (IMPC) | [Phenotype] | [Viable/Lethal] | [X] |
 | Human genetics (pLI) | [Value] | [Interpretation] | [X] |
 
-**Genetic Validation Score**: [X/10]
+**Genetic Validation Score**: [X]/10
 
-### 10.3 Known Adverse Events (0-5)
+### 11.3 Known Adverse Events (0-5)
 
 | Adverse Event | Frequency | Drug Class | Mechanism |
 |---------------|-----------|------------|-----------|
 | [Event] | [Common/Uncommon/Rare] | [Class] | [On-target/Off-target] |
 
-**ADR Score**: [X/5]
+**ADR Score**: [X]/5
 
-### 10.4 Safety Liabilities Summary
+### 11.4 Safety Liabilities Summary
 
 | Safety Concern | Evidence | Severity | Organ System |
 |----------------|----------|----------|--------------|
 | [Concern] | [Animal/Human/Both] | [High/Medium/Low] | [System] |
 
-**Total Safety Score**: [X/20]
+### 11.5 Paralog & Off-Target Risks
+
+| Paralog | Sequence Identity | Cross-reactivity Risk |
+|---------|-------------------|----------------------|
+| [Gene] | [##%] | [Risk assessment] |
+
+**Total Safety Score**: [X]/20
 
 ---
+**Sources:**
+- OpenTargets: `OpenTargets_get_target_safety_profile_by_ensemblID` ([ensembl_id])
+- OpenTargets: `OpenTargets_get_biological_mouse_models_by_ensemblID` ([ensembl_id])
+- GTEx: `GTEx_get_median_gene_expression` ([gencode_id])
+---
 
-## 11. Clinical Precedent (0-15 pts)
+## 12. Clinical Precedent (0-15 pts)
 
-### 11.1 Approved Drugs
+![Clinical Timeline](figures/clinical_timeline.png)
+
+### 12.1 Approved Drugs
 
 | Drug Name | Brand Name | Mechanism | Indication | Approval Year |
 |-----------|------------|-----------|------------|---------------|
 | [Drug] | [Brand] | [Inhibitor/Agonist/etc.] | [Indication] | [Year] |
 
-### 11.2 Clinical Pipeline
+### 12.2 Clinical Pipeline
 
 | Drug | Phase | Indication | Trial Count | Status |
 |------|-------|------------|-------------|--------|
 | [Drug] | [Phase I/II/III] | [Indication] | [###] | [Active/Completed] |
 
 **Total Clinical Trials**: [###]
+**Active Trials**: [###]
 
-### 11.3 Clinical Precedent Score
+### 12.3 Failed Programs & Lessons
+
+| Drug | Phase Failed | Reason | Lesson |
+|------|--------------|--------|--------|
+| [Drug] | [Phase] | [Reason] | [Lesson] |
+
+### 12.4 Clinical Precedent Score
 
 | Stage | Points |
 |-------|--------|
 | [Highest stage] | [X/15] |
 
-**Total Clinical Precedent Score**: [X/15]
+**Total Clinical Precedent Score**: [X]/15
 
 ---
+**Sources:**
+- OpenTargets: `OpenTargets_get_associated_drugs_by_target_ensemblID` ([ensembl_id])
+- ClinicalTrials.gov: `search_clinical_trials` ([query_term])
+---
 
-## 12. Validation Evidence (0-10 pts)
+## 13. Validation Evidence (0-10 pts)
 
-### 12.1 Functional Studies (0-5)
+### 13.1 Functional Studies (0-5)
 
 | Study Type | Result | Evidence Tier | Points |
 |------------|--------|---------------|--------|
@@ -383,9 +561,9 @@ Full report template with all sections, completeness checklist, and section-spec
 | siRNA | [Phenotype] | T2 | [X] |
 | Biochemical | [Result] | T2 | [X] |
 
-**Functional Studies Score**: [X/5]
+**Functional Studies Score**: [X]/5
 
-### 12.2 Disease Models (0-5)
+### 13.2 Disease Models (0-5)
 
 | Model Type | Result | Evidence Tier | Points |
 |------------|--------|---------------|--------|
@@ -393,13 +571,19 @@ Full report template with all sections, completeness checklist, and section-spec
 | GEMM | [Phenotype] | T2 | [X] |
 | Cell line | [Result] | T3 | [X] |
 
-**Disease Models Score**: [X/5]
+**Disease Models Score**: [X]/5
 
-**Total Validation Evidence Score**: [X/10]
+### 13.3 Target Essentiality (DepMap)
+
+| Cell Line | Dependency Score | Essentiality |
+|-----------|------------------|--------------|
+| [Cell line] | [Score] | [Essential/Non-essential] |
+
+**Total Validation Evidence Score**: [X]/10
 
 ---
 
-## 13. Validation Scorecard
+## 14. Validation Scorecard
 
 ### Composite Score Summary
 
@@ -417,6 +601,8 @@ Full report template with all sections, completeness checklist, and section-spec
 **Tier**: [1-4]
 **Recommendation**: [GO/CONDITIONAL GO/CAUTION/NO-GO]
 
+[Tier description paragraph]
+
 ### Modality-Specific Assessment
 
 | Modality | Adjusted Score | Tier | Notes |
@@ -427,19 +613,21 @@ Full report template with all sections, completeness checklist, and section-spec
 
 ---
 
-## Part C: Synthesis & Recommendations
+## Part D: Synthesis & Recommendations
 
 ---
 
-## 14. Validation Roadmap
+## 15. Validation Roadmap
 
 ### Recommended Validation Experiments
 
 | Priority | Experiment | Rationale | Expected Timeline |
 |----------|------------|-----------|-------------------|
-| HIGH | [Experiment] | [Why needed] | [Timeline] |
-| MEDIUM | [Experiment] | [Why needed] | [Timeline] |
-| LOW | [Experiment] | [Why needed] | [Timeline] |
+| 🔴 HIGH | [Experiment] | [Why needed] | [Timeline] |
+| 🔴 HIGH | [Experiment] | [Why needed] | [Timeline] |
+| 🟡 MEDIUM | [Experiment] | [Why needed] | [Timeline] |
+| 🟡 MEDIUM | [Experiment] | [Why needed] | [Timeline] |
+| 🟢 LOW | [Experiment] | [Why needed] | [Timeline] |
 
 ### Data Gaps to Address
 
@@ -447,9 +635,26 @@ Full report template with all sections, completeness checklist, and section-spec
 |-----|-------------------|----------|
 | [Gap] | [Action] | [Priority] |
 
+### Testable Hypotheses
+
+1. **Hypothesis 1**: [Statement]
+   - Perturbation: [Approach]
+   - Expected Readout: [Measurement]
+   - Success Criteria: [Threshold]
+
+2. **Hypothesis 2**: [Statement]
+   - Perturbation: [Approach]
+   - Expected Readout: [Measurement]
+   - Success Criteria: [Threshold]
+
+3. **Hypothesis 3**: [Statement]
+   - Perturbation: [Approach]
+   - Expected Readout: [Measurement]
+   - Success Criteria: [Threshold]
+
 ---
 
-## 15. Tool Compounds for Testing
+## 16. Tool Compounds for Testing
 
 ### Recommended Tool Compounds
 
@@ -463,9 +668,13 @@ Full report template with all sections, completeness checklist, and section-spec
 |-------|-------------|-----|--------|
 | [Probe] | [Selective/Broad] | [Recommended use] | [SGC/etc.] |
 
+### Drug Resistance Considerations
+
+[Known resistance mechanisms, mutations, or strategies to overcome resistance]
+
 ---
 
-## 16. Biomarker Strategy
+## 17. Biomarker Strategy
 
 ### Predictive Biomarkers
 
@@ -479,9 +688,13 @@ Full report template with all sections, completeness checklist, and section-spec
 |--------|---------|-------------|-----------|
 | [Marker] | [Readout] | [Sample] | [Timepoint] |
 
+### Patient Stratification
+
+[Strategy for selecting patients most likely to respond]
+
 ---
 
-## 17. Key Risks & Mitigations
+## 18. Key Risks & Mitigations
 
 ### Risk Assessment
 
@@ -490,6 +703,7 @@ Full report template with all sections, completeness checklist, and section-spec
 | Safety | [Risk] | [High/Med/Low] | [High/Med/Low] | [Mitigation] |
 | Efficacy | [Risk] | [High/Med/Low] | [High/Med/Low] | [Mitigation] |
 | Competition | [Risk] | [High/Med/Low] | [High/Med/Low] | [Mitigation] |
+| Technical | [Risk] | [High/Med/Low] | [High/Med/Low] | [Mitigation] |
 
 ### Key Strengths
 
@@ -503,6 +717,12 @@ Full report template with all sections, completeness checklist, and section-spec
 2. [Challenge 2]
 3. [Challenge 3]
 
+### Competitive Landscape
+
+- **Market Status**: [First-in-Class/Best-in-Class/Follower]
+- **Patent Landscape**: [Crowded/Moderate/Open]
+- **Differentiation Opportunities**: [List]
+
 ---
 
 ## Appendices
@@ -515,26 +735,54 @@ Full report template with all sections, completeness checklist, and section-spec
 
 | Database | Section(s) | Queries | Status |
 |----------|------------|---------|--------|
-| UniProtKB | 1, 2, 3 | [accession] | ✅ Success |
-| RCSB PDB | 3 | [PDB IDs] | ✅ Success |
-| AlphaFold DB | 3 | [accession] | ✅ Success |
-| Open Targets | 7, 8, 9, 10 | [ensembl_id] | ✅ Success |
-| GTEx | 6 | [gencode_id] | ✅ Success |
-| gnomAD | 7 | [gene_symbol] | ✅ Success |
-| ChEMBL | 9 | [target_chembl_id] | ✅ Success |
+| UniProtKB | 2, 3, 4 | [accession] | ✅ Success |
+| RCSB PDB | 4 | [PDB IDs] | ✅ Success |
+| AlphaFold DB | 4 | [accession] | ✅ Success |
+| InterPro | 4 | [accession] | ✅ Success |
+| Gene Ontology | 5 | [gene_id] | ✅ Success |
+| Reactome | 5 | [accession] | ✅ Success |
+| STRING | 6 | [protein_ids] | ✅ Success |
+| IntAct | 6 | [accession] | ✅ Success |
+| GTEx | 7 | [gencode_id] | ✅ Success |
+| Human Protein Atlas | 7 | [ensembl_id] | ✅ Success |
+| gnomAD | 8 | [gene_symbol] | ✅ Success |
+| ClinVar | 8 | [gene] | ✅ Success |
+| Open Targets | 8, 9, 10, 11 | [ensembl_id] | ✅ Success |
+| ChEMBL | 10 | [target_chembl_id] | ✅ Success |
+| GWAS Catalog | 8 | [mapped_gene] | ✅ Success |
 
 ### Tools Used by Phase
 
 | Phase | Tools Used |
 |-------|------------|
-| 0. Disambiguation | `MyGene_query_genes`, `UniProt_id_mapping`, `ensembl_lookup_gene` |
-| 1. OT Foundation | `OpenTargets_get_diseases_phenotypes_by_target_ensemblId`, etc. |
-| ... | ... |
+| 0. Disambiguation | `MyGene_query_genes`, `UniProt_id_mapping`, `ensembl_lookup_gene`, `ChEMBL_search_targets` |
+| 1. OT Foundation | `OpenTargets_get_diseases_phenotypes_by_target_ensembl`, etc. (11 endpoints) |
+| 2-7. Collection | UniProt, PDB, STRING, GTEx, gnomAD, Reactome tools |
+| 8-12. Scoring | Scoring calculation from collected data |
+
+### Data Freshness
+
+- **Report Generated**: [YYYY-MM-DD HH:MM UTC]
+- **UniProt Release**: [Release number if available]
+- **GTEx Version**: v8
+- **gnomAD Version**: v4.0
 
 ---
 
 ## Appendix B: Completeness Checklist
 
+### Phase Coverage
+- [ ] Phase 0: Target disambiguation (all IDs resolved)
+- [ ] Phase 1: Open Targets foundation (11 endpoints)
+- [ ] Phase 2: Core identity (UniProt)
+- [ ] Phase 3: Structure & domains (PDB, AlphaFold, InterPro)
+- [ ] Phase 4: Function & pathways (GO, Reactome)
+- [ ] Phase 5: PPIs (STRING, IntAct)
+- [ ] Phase 6: Expression (GTEx, HPA)
+- [ ] Phase 7: Genetics (gnomAD, ClinVar, GWAS)
+- [ ] Phases 8-12: Scoring complete
+
+### Data Minimums
 - [ ] All identifiers resolved (UniProt, Ensembl, Entrez, ChEMBL)
 - [ ] PDB structures listed (if available)
 - [ ] All 4 constraint scores reported
@@ -542,7 +790,16 @@ Full report template with all sections, completeness checklist, and section-spec
 - [ ] All approved drugs listed
 - [ ] Safety concerns documented
 - [ ] Validation scorecard complete
-- [ ] All phases executed
+- [ ] PPIs: >= 20 interactors OR documented explanation
+- [ ] Expression: Top 10 tissues with TPM values OR "unavailable"
+- [ ] Pathways: >= 10 pathways OR explanation
+
+### Quality Checks
+- [ ] Evidence grading applied (T1-T4)
+- [ ] All claims have source citations
+- [ ] Negative results documented
+- [ ] Failed tools with fallbacks documented
+- [ ] Interpretation paragraphs included
 
 ---
 
@@ -552,9 +809,15 @@ Full report template with all sections, completeness checklist, and section-spec
 |---------|---------------|--------|--------|-------------|
 | [Section] | [Expected] | [Actual] | [Reason] | [Alternative] |
 
+### Tool Failures
+
+| Tool | Error | Fallback Used |
+|------|-------|---------------|
+| [Tool] | [Error] | [Fallback] |
+
 ---
 
-## Appendix D: Structured Data Export (JSON)
+## Appendix D: Structured Data Export
 
 ```json
 {
@@ -576,12 +839,84 @@ Full report template with all sections, completeness checklist, and section-spec
       "validation_evidence": {"score": [XX], "max": 10}
     }
   },
+  "identifiers": {
+    "symbol": "[SYMBOL]",
+    "uniprot": "[P#####]",
+    "ensembl": "[ENSG###]",
+    "entrez": [#####],
+    "chembl": "[CHEMBL###]"
+  },
   "diseases": [...],
-  "modality_assessment": {...},
+  "drugs": [...],
   "safety_flags": [...],
   "recommended_actions": [...]
 }
 ```
+
+---
+
+*Report generated by ToolUniverse Target Validation Pipeline*
+*Date: [YYYY-MM-DD]*
+```
+
+---
+
+## Visualization Placement
+
+Reports must include these visualizations at specified locations:
+
+| Figure | Location | Description |
+|--------|----------|-------------|
+| `validation_score.png` | Section 1 (Executive Summary) | Score breakdown with tier gauge |
+| `tissue_expression.png` | Section 7.1 | Expression heatmap with critical tissues |
+| `disease_associations.png` | Section 8.2 | Disease bar chart with evidence tiers |
+| `safety_dashboard.png` | Section 11 | Multi-panel safety indicators |
+| `clinical_timeline.png` | Section 12 | Drug development timeline |
+
+---
+
+## Evidence Grading Format
+
+Every claim must include evidence tier:
+
+| Tier | Symbol | Criteria |
+|------|--------|----------|
+| T1 | ★★★ | Clinical proof, FDA-approved drug, mechanistic study |
+| T2 | ★★ | Functional study (knockdown, overexpression, clinical trial) |
+| T3 | ★ | Association (GWAS, screen hit, correlation) |
+| T4 | ☆ | Mention (review, text-mined, prediction) |
+
+**Format**: `[Claim] [T1]` or `[Claim] ★★★`
+
+---
+
+## Interpretation Requirements
+
+Each major data section must include:
+
+1. **What the data means**: Significance and implications
+2. **How it affects validation**: Impact on scoring, risks, opportunities
+3. **Recommended actions**: Next steps justified by data
+
+### Example Interpretation Format
+
+```markdown
+### 10.5 Safety Summary
+
+**Interpretation**: The ubiquitous expression pattern across critical tissues
+(heart, liver, kidney, brain) presents a significant safety challenge. The
+mouse knockout phenotype of embryonic lethality confirms target essentiality,
+which may limit therapeutic window. However, the manageable adverse event
+profile of approved drugs demonstrates that modulation is feasible with
+appropriate patient management strategies.
+
+**Impact on Validation**: -8 points for safety profile. The essentiality
+concern reduces the safety score to the lower tier. However, clinical
+precedent demonstrates manageable toxicity.
+
+**Recommendation**: Implement patient stratification based on predictive
+biomarkers; develop targeted delivery approaches to improve therapeutic
+index; establish clear safety monitoring protocols.
 ```
 
 ---
@@ -597,7 +932,7 @@ Include:
 3. Druggability status (has drugs? tractable?)
 4. One-line recommendation with score
 
-### Section 3: Structural Biology
+### Section 4: Structural Biology
 **Purpose**: Enable structure-based drug design decisions
 
 Must include:
@@ -616,211 +951,12 @@ Must include:
 - Known ADRs from approved drugs
 - Paralog risks for selectivity
 
-### Section 14: Validation Roadmap
+### Section 15: Validation Roadmap
 **Purpose**: Provide actionable next steps
 
 Requirements:
-- Use priority levels (HIGH/MEDIUM/LOW)
+- Use priority levels (🔴 HIGH/🟡 MEDIUM/🟢 LOW)
 - Each recommendation must be actionable
 - Include timeline estimates
 - Address identified data gaps
-
----
-
-## Visualization Requirements
-
-Reports must include ASCII visualizations for key data. These visualizations improve readability and allow quick comprehension of complex data.
-
-### 1. Validation Score Visualization
-
-Display the composite score as a visual radar/bar chart:
-
-```
-                    Disease Association (30)
-                            |
-                            28
-                            |
-    Safety (20) ----+-------+-------+---- Druggability (25)
-                    |       |       |
-                    12      |       24
-                    |       |       |
-            Clinical -------+------- Validation
-            Precedent               Evidence
-               (15)                  (10)
-                 15                    9
-
-    TOTAL SCORE: 88/100 | TIER 1 | GO
-```
-
-Alternative horizontal bar format:
-```
-    Validation Score Breakdown
-    ========================================
-    Disease Association  [████████████████████] 28/30 (93%)
-    Druggability         [███████████████████ ] 24/25 (96%)
-    Safety Profile       [████████████        ] 12/20 (60%)
-    Clinical Precedent   [████████████████████] 15/15 (100%)
-    Validation Evidence  [█████████████████   ]  9/10 (90%)
-    ========================================
-    TOTAL: 88/100 | TIER 1 | RECOMMENDATION: GO
-```
-
-### 2. Tissue Expression Heatmap
-
-Show expression levels across tissues with critical tissue highlighting:
-
-```
-    Tissue Expression Profile (TPM)
-    ========================================
-    Lung          [████████████████████] 120 | Disease-relevant
-    Liver         [████████████████    ]  96 | CRITICAL TISSUE
-    Kidney        [███████████         ]  68 | CRITICAL TISSUE
-    Heart         [████████            ]  48 | CRITICAL TISSUE
-    Brain         [████                ]  24 | CRITICAL TISSUE
-    Bone Marrow   [██                  ]  12 | CRITICAL TISSUE
-    Skin          [████████████        ]  72
-    Intestine     [██████              ]  36
-    ========================================
-    Expression Threshold: Low <20 | Medium 20-50 | High >50 TPM
-    Critical Tissues: Heart, Liver, Kidney, Brain, Bone Marrow
-```
-
-### 3. Disease Association Bar Chart
-
-Visualize top disease associations:
-
-```
-    Top Disease Associations (Open Targets Score)
-    ========================================
-    NSCLC           [████████████████████] 0.95 | [T1] Approved drugs
-    Glioblastoma    [████████████████    ] 0.82 | [T2] Somatic mutations
-    Colorectal      [█████████████████   ] 0.71 | [T3] Expression
-    Head & Neck     [█████████████       ] 0.55 | [T3] Association
-    Ovarian         [██████████          ] 0.42 | [T4] Text-mined
-    ========================================
-    Score Threshold: Strong >0.7 | Moderate 0.4-0.7 | Weak <0.4
-```
-
-### 4. Clinical Development Timeline
-
-Show clinical precedent over time:
-
-```
-    Clinical Development Timeline
-    ========================================
-    2003 |--[Gefitinib]--| FDA Approved (NSCLC)
-    2004 |--[Erlotinib]--| FDA Approved (NSCLC)
-    2013 |--[Afatinib]---| FDA Approved (NSCLC)
-    2015 |--[Osimertinib]| FDA Approved (NSCLC)
-    2020 |--[Amivantamab]| FDA Approved (NSCLC)
-    ========================================
-    Total: 5 FDA-approved drugs | First approval: 2003
-```
-
-### 5. Modality Comparison Chart
-
-When multiple modalities assessed:
-
-```
-    Modality Tractability Comparison
-    ========================================
-    Small Molecule    [████████████████████] 92/100 | BEST MATCH
-    Antibody          [██████████████████  ] 85/100 |
-    PROTAC            [█████████████████   ] 80/100 |
-    Gene Therapy      [███████████         ] 55/100 |
-    RNA Therapeutic   [███████████████     ] 68/100 |
-    Cell Therapy      [██████████████      ] 72/100 |
-    ========================================
-    Recommended Modality: Small Molecule
-```
-
----
-
-## Interpretation Requirements
-
-Every data section must include interpretation that connects findings to validation decisions. DO NOT simply list data without context.
-
-### Required Interpretation Elements
-
-**1. What the data means**:
-- Explain significance of findings
-- Compare to benchmark targets
-- Identify implications for drug development
-
-**2. How it affects validation**:
-- Impact on scoring
-- Risk considerations
-- Opportunities identified
-
-**3. Recommended actions**:
-- Next steps justified by data
-- Gaps to address
-- Experiments to prioritize
-
-### Example Interpretation Formats
-
-**For Structural Biology Section**:
-```markdown
-### 3.5 Structural Druggability Assessment
-
-[Data tables...]
-
-**Interpretation**: The availability of 150+ PDB structures with resolutions
-better than 2.5A provides a strong foundation for structure-based drug design.
-The presence of multiple co-crystal structures with diverse chemotypes
-demonstrates tractability and de-risks lead identification. However, the
-predominance of ATP-competitive binding modes suggests potential selectivity
-challenges across the kinome. The conserved cysteine at position 797 offers
-an opportunity for covalent inhibitor development, which could provide
-differentiation from existing approved drugs.
-
-**Impact on Validation**: +8 points for structural tractability. The structural
-data supports Tier 1 druggability assessment for small molecules.
-
-**Recommendation**: Prioritize type-II or allosteric binding modes for
-selectivity; evaluate covalent inhibitor approach for resistant mutations.
-```
-
-**For Safety Section**:
-```markdown
-### 10.4 Safety Liabilities Summary
-
-[Data tables...]
-
-**Interpretation**: The ubiquitous expression pattern across critical tissues
-(heart, liver, kidney, brain) presents a significant safety challenge. The
-mouse knockout phenotype of embryonic lethality confirms target essentiality,
-which may limit therapeutic window. However, the manageable adverse event
-profile of approved drugs (rash, diarrhea - primarily on-target) demonstrates
-that modulation is feasible with appropriate patient management strategies.
-
-**Impact on Validation**: -8 points for safety profile. The essentiality
-concern reduces the safety score to the lower tier. However, clinical
-precedent demonstrates manageable toxicity.
-
-**Recommendation**: Implement patient stratification based on predictive
-biomarkers; develop targeted delivery approaches to improve therapeutic
-index; establish clear safety monitoring protocols.
-```
-
-**For Clinical Precedent Section**:
-```markdown
-### 11.3 Clinical Precedent Score
-
-[Data tables...]
-
-**Interpretation**: With 5 FDA-approved drugs and multiple ongoing clinical
-trials, this target has exceptional clinical validation. The timeline from
-first approval (2003) to latest approval (2020) shows sustained pharmaceutical
-interest. However, this also indicates a crowded competitive landscape that
-requires clear differentiation strategy. The focus on NSCLC leaves opportunities
-in other approved indications (glioblastoma, colorectal) that are supported
-by genetic evidence.
-
-**Impact on Validation**: Maximum 15/15 points for clinical precedent. This
-is a Tier 1 validated target by clinical standards.
-
-**Recommendation**: For new programs, consider: (1) next-generation inhibitors
-for resistance mutations, (2) combination strategies with immunotherapy,
-(3) expansion to other indications with genetic support.
-```
+- Provide testable hypotheses (>=3)

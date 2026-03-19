@@ -1,502 +1,210 @@
 ---
 name: target-validation
-description: Comprehensive target validation assistant - from biological intelligence to validation decisions in one assessment. Integrates protein information, disease associations, druggability, safety, and clinical data to generate quantitative scoring (0-100) with GO/NO-GO recommendations. Auto-discovers disease associations, supports multi-modality assessment (10+ modalities), outputs integrated report with visualizations and structured data. Use for target validation, prioritization, competitive analysis.
+description: Comprehensive computational validation of drug targets for early-stage drug discovery. Evaluates targets across 5 dimensions using 60+ ToolUniverse tools with evidence grading (T1-T4), quantitative scoring (0-100), and matplotlib visualizations. Produces comprehensive report with GO/NO-GO recommendation. Use for target validation, druggability assessment, or target prioritization.
 ---
 
-# Target Validation Pipeline
+# Drug Target Validation Pipeline
 
 Validate drug target hypotheses using multi-dimensional computational evidence before committing to wet-lab work. Produces a quantitative Target Validation Score (0-100) with priority tier classification and GO/NO-GO recommendation.
 
 ## Key Principles
 
-1. **Report-first** - Create report file FIRST, then populate progressively
-2. **Target disambiguation FIRST** - Resolve all identifiers before analysis
-3. **Evidence grading** - Grade all evidence as T1 (clinical proof) to T4 (computational)
-4. **Auto disease discovery** - Automatically identify top associated diseases
-5. **Modality-aware** - Consider small molecule vs antibody vs PROTAC tractability
-6. **Safety-first** - Prominently flag safety concerns early
-7. **Quantitative scoring** - Every dimension scored numerically (0-100 composite)
-8. **Negative results documented** - "No data" is data; empty sections are failures
-9. **Source references** - Every statement must cite tool/database
-10. **English-first queries** - Always use English terms in tool calls; respond in user's language
+1. **Target disambiguation FIRST** - Resolve ALL identifiers before analysis
+2. **Foundation layer** - Query Open Targets aggregator first
+3. **Evidence grading** - Grade all evidence as T1 (clinical proof) to T4 (computational prediction)
+4. **Disease-specific** - Tailor analysis to disease context when provided
+5. **Quantitative scoring** - Every dimension scored numerically (0-100 composite)
+6. **Negative results documented** - "No data" is data; empty sections are failures
+7. **Visual reports** - Matplotlib graphs replace ASCII visualizations
 
----
+## When to Use
 
-## When to Use This Skill
-
-**Triggers**:
-- "Is [target] a good drug target?"
+Apply when users ask about:
+- "Is [target] a good drug target for [disease]?"
 - Target validation, druggability assessment, or target prioritization
 - Safety risks of modulating a target
-- Chemical starting points for target validation
 - GO/NO-GO recommendation for a target
 
-**Use Cases**:
-1. **Full Target Assessment**: Comprehensive evaluation from biology to validation decision
-2. **Disease-Specific Validation**: Assess target suitability for specific indication
-3. **Modality Selection**: Compare tractability across small molecule/antibody/PROTAC
-4. **Competitive Analysis**: Understand clinical landscape and differentiation opportunities
-5. **Risk Assessment**: Identify safety liabilities and mitigation strategies
-
-**Not for** (use other skills):
-- General target biology only → `tooluniverse-target-research`
-- Drug compound profiling → `tooluniverse-drug-research`
-- Variant interpretation → `tooluniverse-variant-interpretation`
-- Disease research → `tooluniverse-disease-research`
+**Not for**: general target biology (`tooluniverse-target-research`), drug compound profiling (`tooluniverse-drug-research`), variant interpretation (`tooluniverse-variant-interpretation`)
 
 ---
 
-## Input Parameters
+## Quick Start
 
-| Parameter | Required | Type | Description | Example |
-|-----------|----------|------|-------------|---------|
-| **target** | Yes | string | Gene symbol, protein name, or UniProt ID | `EGFR`, `P00533`, `KRAS` |
-| **modality** | No | string | Preferred therapeutic modality | `small_molecule`, `antibody`, `protac`, `gene_therapy`, `rna_therapeutic`, `cell_therapy`, `peptide`, `bispecific`, `adc`, `all` (default) |
-| **disease** | No | string | Disease context for targeted analysis | `Non-small cell lung cancer` |
-| **output_format** | No | string | Output format preference | `markdown` (default), `json`, `both` |
-
----
-
-## Workflow Overview
-
-```
-Stage 1: Foundation
-Phase 0: Target Disambiguation → Phase 1: Open Targets Foundation → Phase 2: Core Identity
-
-Stage 2: Biological Intelligence
-Phase 3: Structure & Domains → Phase 4: Function & Pathways → Phase 5: Protein Interactions
-Phase 6: Expression Profile → Phase 7: Genetic Variation
-
-Stage 3: Validation Assessment
-Phase 8: Disease Scoring → Phase 9: Druggability → Phase 10: Safety Deep Analysis
-Phase 11: Clinical Precedent → Phase 12: Literature Intelligence
-
-Stage 4: Synthesis
-Phase 13: Composite Scoring → Phase 14: Validation Roadmap
-
-Output: Integrated Report + Structured JSON
+**Command Line**:
+```bash
+cd skills/target-validation/scripts
+uv run python run_validation.py TARGET [--output-dir DIR] [--disease DISEASE]
 ```
 
+**Examples**:
+- `uv run python run_validation.py STING --output-dir ./results`
+- `uv run python run_validation.py EGFR --disease "non-small cell lung cancer"`
+- `uv run python run_validation.py KRAS --modality "small molecule"`
+
 ---
 
-## Stage 1: Foundation
+## Workflow
+
+```
+Phase 0: Disambiguation → Phase 1: Foundation → Phases 2-7: Collection
+    → Phases 8-12: Scoring → Visualization → Report Generation
+```
+
+| Phase | Purpose | Key Tools |
+|-------|---------|-----------|
+| 0 | Resolve all IDs | UniProt, MyGene, Ensembl, ChEMBL |
+| 1 | Foundation data | Open Targets (11 endpoints) |
+| 2-7 | Collection | UniProt, PDB, STRING, GTEx, gnomAD |
+| 8-12 | Scoring | Composite calculation |
+| - | Visualization | Matplotlib figures |
+| - | Report | Markdown with embedded figures |
+
+---
+
+## Scoring Overview
+
+**Total: 0-100 points** across 5 dimensions:
+
+| Dimension | Max | Components |
+|-----------|-----|------------|
+| Disease Association | 30 | Genetic (10) + Literature (10) + Pathway (10) |
+| Druggability | 25 | Structure (10) + Chemical matter (10) + Target class (5) |
+| Safety Profile | 20 | Expression (5) + Genetic validation (10) + ADRs (5) |
+| Clinical Precedent | 15 | Based on highest clinical stage |
+| Validation Evidence | 10 | Publications (4) + PPI (3) + Structures (3) |
+
+**Priority Tiers**:
+- 80-100: Tier 1 (GO)
+- 60-79: Tier 2 (CONDITIONAL GO)
+- 40-59: Tier 3 (CAUTION)
+- 0-39: Tier 4 (NO-GO)
+
+---
+
+## Evidence Grading
+
+| Tier | Symbol | Criteria |
+|------|--------|----------|
+| T1 | ★★★ | Clinical proof, FDA-approved drug, mechanistic study |
+| T2 | ★★ | Functional study (knockdown, clinical trial) |
+| T3 | ★ | Association (GWAS, screen hit, correlation) |
+| T4 | ☆ | Mention (review, text-mined, prediction) |
+
+---
+
+## Phase Details
 
 ### Phase 0: Target Disambiguation (ALWAYS FIRST)
 
-Resolve target to ALL identifiers before any analysis.
+**Purpose**: Resolve target to ALL identifiers.
 
-**Tools**:
-- `MyGene_query_genes` - Get initial IDs (Ensembl, UniProt, Entrez)
-- `ensembl_lookup_gene` - Get versioned Ensembl ID (species="homo_sapiens" REQUIRED)
-- `ensembl_get_xrefs` - Cross-references (HGNC, etc.)
-- `OpenTargets_get_target_id_description_by_name` - Verify OT target
-- `ChEMBL_search_targets` - Get ChEMBL target ID
-- `UniProt_get_function_by_accession` - Function summary
-- `UniProt_get_alternative_names_by_accession` - Collision detection
-- `GPCRdb_get_protein` - Detect if GPCR for specialized handling
+**Output**: symbol, uniprot, ensembl, ensembl_versioned, entrez, chembl_target, aliases
 
-**Output**: Table of verified identifiers (Gene Symbol, Ensembl, UniProt, Entrez, ChEMBL, HGNC) plus protein function and target class.
-
-### Phase 1: Open Targets Foundation
-
-Populates baseline data for all subsequent phases.
-
-**Tools**:
-- `OpenTargets_get_diseases_phenotypes_by_target_ensemblId` - Disease associations (for auto-discovery)
-- `OpenTargets_get_target_tractability_by_ensemblId` - Tractability assessment
-- `OpenTargets_get_target_safety_profile_by_ensemblId` - Safety liabilities
-- `OpenTargets_get_target_interactions_by_ensemblId` - PPI network
-- `OpenTargets_get_target_gene_ontology_by_ensemblId` - GO annotations
-- `OpenTargets_get_publications_by_target_ensemblId` - Literature
-- `OpenTargets_get_biological_mouse_models_by_ensemblId` - KO phenotypes
-- `OpenTargets_get_chemical_probes_by_target_ensemblId` - Chemical probes
-- `OpenTargets_get_associated_drugs_by_target_ensemblId` - Known drugs
-
-**Auto Disease Discovery**: If no disease provided, extract top 3 diseases by association score for parallel evaluation.
-
-### Phase 2: Core Identity
-
-**Tools**:
-- `UniProt_get_entry_by_accession` - Complete protein entry
-- `UniProt_get_function_by_accession` - Functional description
-- `UniProt_get_recommended_name_by_accession` - Recommended name
-- `UniProt_get_alternative_names_by_accession` - Synonyms
-- `UniProt_get_subcellular_location_by_accession` - Localization
-- `MyGene_get_gene_annotation` - Gene annotation
-
-**Populates**: Sections 1-3 (Identifiers, Basic Information, Function)
+**Key Parameter Corrections**:
+- `OpenTargets_multi_entity_search`: Use `queryString` (not `query`)
+- `ensembl_lookup_gene`: Use `gene_id` with `species="homo_sapiens"`
 
 ---
 
-## Stage 2: Biological Intelligence
+### Phase 1: Open Targets Foundation (ALWAYS SECOND)
 
-### Phase 3: Structure & Domains
+**Purpose**: Query comprehensive aggregator for baseline data.
 
-Use 3-step structure search chain (do NOT rely solely on PDB text search):
-1. UniProt PDB cross-references (most reliable)
-2. Sequence-based PDB search (catches missing annotations)
-3. AlphaFold (always check)
-4. Domain architecture
+**11 Endpoints**: diseases, tractability, safety, interactions, go_terms, mouse_models, probes, drugs, classes, homologues, publications
 
-**Tools**:
-- `UniProt_get_entry_by_accession` - PDB cross-references
-- `get_protein_metadata_by_pdb_id` - PDB metadata
-- `PDB_search_similar_structures` - Sequence-based search
-- `alphafold_get_prediction` - AlphaFold structure
-- `alphafold_get_summary` - pLDDT confidence
-- `InterPro_get_protein_domains` - Domain architecture
-- `ProteinsPlus_predict_binding_sites` - Druggable pockets
-
-**GPCR targets**: Also query `GPCRdb_get_structures` for active/inactive state data.
-
-### Phase 4: Function & Pathways
-
-**Tools**:
-- `GO_get_annotations_for_gene` - GO terms
-- `Reactome_map_uniprot_to_pathways` - Reactome pathways (param: `id`, NOT `uniprot_id`)
-- `kegg_get_gene_info` - KEGG pathways
-- `WikiPathways_search` - WikiPathways
-- `enrichr_gene_enrichment_analysis` - Enrichment analysis
-
-### Phase 5: Protein Interactions
-
-**Tools**:
-- `STRING_get_protein_interactions` - Predicted + experimental PPIs
-- `intact_get_interactions` - Experimentally validated interactions
-- `intact_get_complex_details` - Protein complexes
-- `BioGRID_get_interactions` - Literature-curated interactions
-
-**Minimum**: 20 interactors OR documented explanation.
-
-### Phase 6: Expression Profile
-
-GTEx with versioned ID fallback + HPA as backup.
-
-**Tools**:
-- `GTEx_get_median_gene_expression` - Tissue expression (requires `operation="median"`)
-- `HPA_get_rna_expression_by_source` - HPA RNA expression
-- `HPA_get_comprehensive_gene_details_by_ensembl_id` - Comprehensive HPA data
-- `HPA_get_subcellular_location` - Protein localization
-- `HPA_get_cancer_prognostics_by_gene` - Cancer prognostics
-- `CELLxGENE_get_expression_data` - Single-cell expression
-
-### Phase 7: Genetic Variation & Disease
-
-**Tools**:
-- `gnomad_get_gene_constraints` - Constraint scores (pLI, LOEUF, missense Z, pRec)
-- `clinvar_search_variants` - Clinical variants
-- `OpenTargets_get_diseases_phenotypes_by_target_ensembl` - Disease associations
-- `DisGeNET_search_gene` - Curated gene-disease associations
-- `civic_get_variants_by_gene` - Clinical variants (CIViC)
-- `cBioPortal_get_mutations` - Cancer mutations
-
-**Required**: All 4 constraint scores (pLI, LOEUF, missense Z, pRec).
+**CRITICAL**: Publications uses `entityId` NOT `ensemblId`
 
 ---
 
-## Stage 3: Validation Assessment
+### Phases 2-7: Data Collection
 
-### Phase 8: Disease Association Scoring (0-30 pts)
+| Phase | Data | Minimum |
+|-------|------|---------|
+| 2 | Core Identity | UniProt entry |
+| 3 | Structure | >=5 PDB OR AlphaFold |
+| 4 | Pathways | >=10 pathways |
+| 5 | PPIs | >=20 interactors |
+| 6 | Expression | Top 10 tissues with TPM |
+| 7 | Genetics | All 4 constraint scores |
 
-Quantify target-disease association from genetic, literature, and pathway evidence.
-
-**Sub-scores**:
-- Genetic evidence (0-10): GWAS, rare variants, somatic mutations
-- Literature evidence (0-10): Publication count and quality
-- Pathway evidence (0-10): OpenTargets association score
-
-**Tools**:
-- `OpenTargets_target_disease_evidence` - Detailed evidence
-- `OpenTargets_get_evidence_by_datasource` - Evidence by source
-- `gwas_get_snps_for_gene` - GWAS associations
-- `gwas_search_studies` - GWAS studies
-
-### Phase 9: Druggability Assessment (0-25 pts)
-
-Assess whether the target is amenable to therapeutic intervention.
-
-**Sub-scores**:
-- Structural tractability (0-10): Structure quality, binding pockets
-- Chemical matter (0-10): Known compounds, bioactivity data
-- Target class bonus (0-5): Validated target family
-
-**Tools**:
-- `OpenTargets_get_target_tractability_by_ensemblId` - Tractability buckets
-- `OpenTargets_get_target_classes_by_ensemblId` - Target classification
-- `Pharos_get_target` - TDL: Tclin > Tchem > Tbio > Tdark
-- `DGIdb_get_gene_druggability` - Druggability categories
-- `alphafold_get_prediction` / `alphafold_get_summary` - Structure prediction
-- `ProteinsPlus_predict_binding_sites` - Pocket detection
-- `OpenTargets_get_chemical_probes_by_target_ensemblId` - Chemical probes
-
-### Phase 10: Safety Deep Analysis (0-20 pts)
-
-Comprehensive safety assessment from multiple sources.
-
-**Sub-scores**:
-- Tissue expression selectivity (0-5): Expression in critical tissues
-- Genetic validation (0-10): Knockout phenotypes, human genetics
-- Known adverse events (0-5): Safety signals from modulators
-
-**Tools**:
-- `OpenTargets_get_target_safety_profile_by_ensemblId` - Safety liabilities
-- `GTEx_get_median_gene_expression` - Tissue expression
-- `HPA_get_comprehensive_gene_details_by_ensembl_id` - HPA data
-- `OpenTargets_get_biological_mouse_models_by_ensemblId` - KO phenotypes
-- `FDA_get_adverse_reactions_by_drug_name` - ADRs from approved drugs
-- `FDA_get_boxed_warning_info_by_drug_name` - Black box warnings
-- `OpenTargets_get_target_homologues_by_ensemblId` - Paralog risks
-
-**Critical tissues**: heart, liver, kidney, brain, bone marrow.
-
-### Phase 11: Clinical Precedent (0-15 pts)
-
-Assess clinical validation from approved drugs and clinical trials.
-
-**Tools**:
-- `OpenTargets_get_associated_drugs_by_target_ensemblId` - Known drugs
-- `FDA_get_mechanism_of_action_by_drug_name` - FDA MoA
-- `FDA_get_indications_by_drug_name` - FDA indications
-- `drugbank_get_targets_by_drug_name_or_drugbank_id` - DrugBank targets
-- `search_clinical_trials` - Clinical trials
-- `ChEMBL_search_mechanisms` - Drug mechanisms
-
-### Phase 12: Literature Intelligence
-
-Comprehensive collision-aware literature analysis.
-
-**Tools**:
-- `PubMed_search_articles` - PubMed search
-- `EuropePMC_search_articles` - Broader coverage
-- `PubTator3_LiteratureSearch` - Literature search
-- `openalex_search_works` - Citation metrics
-- `OpenTargets_get_publications_by_target_ensemblId` - OT publications
-
-**Collision detection**: Search gene symbol in title; if >20% off-topic, add filters (AND protein OR gene).
+**Fallback Chains**:
+- Expression: GTEx (versioned) → GTEx (unversioned) → HPA
+- PPIs: STRING → IntAct → BioGRID
+- Constraints: gnomAD → OpenTargets
 
 ---
 
-## Stage 4: Synthesis
+### Phases 8-12: Scoring
 
-### Phase 13: Composite Scoring
-
-Calculate total score (0-100), assign tier, generate GO/NO-GO.
-
-**Score Calculation**:
-```
-Total = Disease (0-30) + Druggability (0-25) + Safety (0-20) + Clinical (0-15) + Validation (0-10)
-```
-
-**Priority Tiers**:
-| Score | Tier | Recommendation |
-|-------|------|----------------|
-| 80-100 | Tier 1 | GO - Highly validated |
-| 60-79 | Tier 2 | CONDITIONAL GO |
-| 40-59 | Tier 3 | CAUTION |
-| 0-39 | Tier 4 | NO-GO |
-
-### Phase 14: Validation Roadmap
-
-Generate actionable recommendations:
-1. Recommended validation experiments
-2. Tool compounds for testing
-3. Biomarker strategy
-4. Key risks and mitigations
+See [SCORING_CRITERIA.md](SCORING_CRITERIA.md) for detailed scoring rules.
 
 ---
 
-## Modality-Specific Assessment
+## Visualization Module
 
-### Supported Modalities
+Generates 5 matplotlib figures:
 
-| Modality | Code | Focus Areas | Tractability Criteria |
-|----------|------|-------------|----------------------|
-| **Small Molecule** | `small_molecule` | Binding pockets, oral bioavailability, BBB permeability | SM tractability bucket 1-7, co-crystal structures, Lipinski compliance |
-| **Monoclonal Antibody** | `antibody` | Surface accessibility, extracellular domain, Fc engineering | AB tractability bucket, cell surface expression, epitope uniqueness |
-| **PROTAC** | `protac` | Known binders, E3 ligase recruitment, linker attachment, surface lysines | Ligand availability, degradation feasibility, ternary complex formation |
-| **Gene Therapy** | `gene_therapy` | Disease-relevant tissues, promoter selection, delivery vector | Tissue specificity, AAV tropism, immunogenicity profile |
-| **RNA Therapeutic** | `rna_therapeutic` | Sequence accessibility, off-target potential, chemical modification | siRNA/ASO design potential, mRNA stability, delivery to target tissue |
-| **Cell Therapy** | `cell_therapy` | Surface markers, CAR design, persistence, trafficking | Target specificity on disease cells, tonic signaling risk, exhaustion markers |
-| **Peptide Therapeutic** | `peptide` | Binding interface, stability, membrane permeability | Peptide binding site, protease resistance, cell penetration |
-| **Bispecific Antibody** | `bispecific` | Dual target engagement, format selection, bridging geometry | Two target accessibility, appropriate spatial arrangement |
-| **ADC** | `adc` | Internalization rate, linker stability, payload selection | Surface expression, endocytosis efficiency, bystander effect |
-| **All Modalities** | `all` | Compare scores across all modalities | Report best 3 modalities with detailed assessment |
-
-### Modality-Specific Scoring Adjustments
-
-| Modality | Bonus Criteria | Penalty Criteria |
-|----------|---------------|------------------|
-| Small Molecule | +2 for high-res co-crystal; +1 for known oral drug | -2 for shallow pockets; -1 for PPI target |
-| Antibody | +2 for confirmed surface expression; +1 for unique epitope | -2 for intracellular target; -1 for high homology paralogs |
-| PROTAC | +2 for known binders; +1 for multiple E3 options | -2 for membrane proteins; -1 for disordered regions |
-| Gene Therapy | +2 for tissue-specific promoter; +1 for AAV delivery data | -2 for ubiquitous essential gene; -1 for immune privilege |
-| RNA Therapeutic | +2 for validated siRNA/ASO; +1 for tissue accessibility | -2 for high homology family; -1 for nuclear localization |
-| Cell Therapy | +2 for tumor-specific antigen; +1 for exhaustion resistance | -2 for vital normal tissue expression; -1 for heterogeneity |
-| Peptide | +2 for structural constraint; +1 for cell-penetrating potential | -2 for protease-sensitive sites; -1 for rapid clearance |
-| Bispecific | +2 for synergistic targets; +1 for optimal geometry | -2 for competing epitopes; -1 for steric hindrance |
-| ADC | +2 for rapid internalization; +1 for tumor-selective expression | -2 for slow turnover; -1 for shed antigen |
+| Figure | Description |
+|--------|-------------|
+| `validation_score.png` | Bar chart with tier gauge |
+| `disease_associations.png` | Evidence tier bar chart |
+| `tissue_expression.png` | Expression heatmap |
+| `clinical_timeline.png` | Drug development timeline |
+| `safety_dashboard.png` | Multi-panel safety indicators |
 
 ---
 
-## Evidence Grading System
+## Output Files
 
-| Tier | Symbol | Criteria | Examples |
-|------|--------|----------|----------|
-| **T1** | [T1] | Direct mechanistic, human clinical proof | FDA-approved drug, crystal structure, patient mutation |
-| **T2** | [T2] | Functional studies, model organism | siRNA phenotype, mouse KO, biochemical assay |
-| **T3** | [T3] | Association, screen hits, computational | GWAS hit, DepMap essentiality, expression correlation |
-| **T4** | [T4] | Mention, review, predicted | Review article, database annotation, AlphaFold |
-
-See [EVIDENCE_GRADING.md](EVIDENCE_GRADING.md) for detailed tier definitions.
-
----
-
-## Report Output
-
-Create file: `[TARGET]_validation_report.md`
-
-Use the full template from [REPORT_TEMPLATE.md](REPORT_TEMPLATE.md). Key sections:
-- Executive Summary (score, tier, recommendation, key findings)
-- Part A: Target Intelligence (7 sections)
-- Part B: Validation Assessment (6 sections)
-- Part C: Synthesis & Recommendations (4 sections)
-- Appendices (data sources, completeness, gaps, JSON)
-
-### Visualization Requirements
-
-Reports must include ASCII visualizations for key data:
-
-**1. Validation Score Radar Chart**
 ```
-                    Disease Association (30)
-                            |
-                            28
-                            |
-    Safety (20) ----+-------+-------+---- Druggability (25)
-                    |       |       |
-                    12      |       24
-                    |       |       |
-            Clinical -------+------- Validation
-            Precedent               Evidence
-               (15)                  (10)
-                 15                    9
-
-    TOTAL SCORE: 88/100 | TIER 1 | GO
-```
-
-**2. Expression Heatmap**
-```
-    Tissue Expression Profile (TPM)
-    ========================================
-    Lung          [████████████████████] 120
-    Liver         [████████████████    ] 96
-    Kidney        [███████████         ] 68
-    Heart         [████████            ] 48
-    Brain         [████                ] 24
-    Bone Marrow   [██                  ] 12
-    ========================================
-    Critical tissues: Heart, Liver, Kidney, Brain marked
-```
-
-**3. Disease Association Bar Chart**
-```
-    Top Disease Associations (Open Targets Score)
-    ========================================
-    NSCLC           [████████████████████] 0.95
-    Glioblastoma    [████████████████    ] 0.82
-    Colorectal      [█████████████       ] 0.71
-    Head & Neck     [██████████          ] 0.55
-    Ovarian         [███████             ] 0.38
-    ========================================
-```
-
-**4. Clinical Timeline**
-```
-    Clinical Development Timeline
-    ========================================
-    2003 |--[Gefitinib]--| FDA Approved (NSCLC)
-    2004 |--[Erlotinib]--| FDA Approved (NSCLC)
-    2013 |--[Afatinib]---| FDA Approved (NSCLC)
-    2015 |--[Osimertinib]| FDA Approved (NSCLC)
-    2020 |--[Amivantamab]| FDA Approved (NSCLC)
-    ========================================
-    5 FDA-approved drugs targeting this protein
-```
-
-### Interpretation Requirements
-
-Every data section must include interpretation paragraphs:
-
-**DO include**:
-- What the data means for drug development
-- Comparison to benchmark targets (well-validated vs. failed targets)
-- Implications for modality selection
-- Risk assessment with mitigation strategies
-- Recommended next steps with justification
-
-**DON'T**:
-- Present raw data tables without interpretation
-- List facts without connecting to validation decision
-- Omit context for why data matters
-- Use bullet points where narrative synthesis is needed
-
-**Example Interpretation Format**:
-```markdown
-### 9. Druggability Assessment
-
-[Data tables...]
-
-**Interpretation**: The target belongs to the kinase family, which has the
-highest success rate in drug development (>30% of approved drugs). The
-availability of 150+ PDB structures and 500+ known inhibitors significantly
-de-risks lead identification. However, the shallow ATP-binding pocket
-typical of this kinase subclass may require type-II or allosteric inhibitor
-strategies. The absence of covalent inhibitor structures suggests an
-opportunity for differentiated chemistry targeting the conserved cysteine
-residue at position 797.
+output_dir/
+├── TARGET_validation_report.md     # Comprehensive markdown report
+├── TARGET_validation_results.json  # Structured JSON data
+├── figures/                        # Matplotlib visualizations
+│   ├── validation_score.png
+│   ├── disease_associations.png
+│   ├── tissue_expression.png
+│   ├── clinical_timeline.png
+│   └── safety_dashboard.png
+└── phase*.json                     # Intermediate files
 ```
 
 ---
 
-## Tool Parameter Reference
-
-**Critical Parameter Corrections**:
-
-| Tool | WRONG Parameter | CORRECT Parameter |
-|------|-----------------|-------------------|
-| `Reactome_map_uniprot_to_pathways` | `uniprot_id` | `id` |
-| `ensembl_get_xrefs` | `gene_id` | `id` |
-| `GTEx_get_median_gene_expression` | `gencode_id` only | `gencode_id` + `operation="median"` |
-| `OpenTargets_*` | `ensemblID` | `ensemblId` (camelCase) |
-| `STRING_get_protein_interactions` | single ID | `protein_ids` (list), `species` |
-| `intact_get_interactions` | gene symbol | `identifier` (UniProt accession) |
-| `OpenTargets_get_associated_drugs_by_target_ensemblID` | `ensemblId` only | `ensemblId` + `size` (REQUIRED) |
+## Critical Parameter Corrections
 
 See [TOOL_REFERENCE.md](TOOL_REFERENCE.md) for complete reference.
 
+| Tool | WRONG | CORRECT |
+|------|-------|---------|
+| `OpenTargets_*` | `ensemblID` | `ensemblId` |
+| `OpenTargets_publications` | `ensemblId` | `entityId` |
+| `GTEx_get_median_gene_expression` | `operation="median"` | `operation="get_median_gene_expression"` |
+| `gnomad_get_gene_constraints` | `gene_id` | `gene_symbol` |
+| `gwas_get_snps_for_gene` | `gene` | `mapped_gene` |
+| `STRING_get_protein_interactions` | single ID | `protein_ids` (list) |
+
 ---
 
-## Fallback Strategies
+## Completeness Checklist
 
-| Primary Tool | Fallback 1 | Fallback 2 |
-|--------------|------------|------------|
-| `ChEMBL_get_target_activities` | `GtoPdb_get_target_ligands` | `OpenTargets drugs` |
-| `intact_get_interactions` | `STRING_get_protein_interactions` | `OpenTargets interactions` |
-| `GO_get_annotations_for_gene` | `OpenTargets GO` | `MyGene GO` |
-| `GTEx_get_median_gene_expression` | `HPA_get_rna_expression` | Document as unavailable |
-| `gnomad_get_gene_constraints` | `OpenTargets constraint` | - |
-
-**NEVER silently skip failed tools.** Document failures and fallbacks.
+- [ ] All identifiers resolved (UniProt, Ensembl, Entrez, ChEMBL)
+- [ ] Open Targets foundation data queried (11 endpoints)
+- [ ] PPIs: >= 20 interactors OR documented explanation
+- [ ] Expression: Top 10 tissues with TPM values OR "unavailable"
+- [ ] Diseases: Top 10 associations with scores
+- [ ] Constraints: All 4 gnomAD scores OR "unavailable"
+- [ ] Evidence grading applied (T1-T4)
+- [ ] Safety flags documented
+- [ ] Validation roadmap provided
+- [ ] All visualizations generated
 
 ---
 
 ## Reference Files
 
-| File | Contents |
-|------|----------|
-| [SCORING_CRITERIA.md](SCORING_CRITERIA.md) | Detailed scoring matrices, evidence grading, priority tiers |
-| [REPORT_TEMPLATE.md](REPORT_TEMPLATE.md) | Full report template with all sections |
-| [TOOL_REFERENCE.md](TOOL_REFERENCE.md) | Complete tool reference with parameters |
-| [EVIDENCE_GRADING.md](EVIDENCE_GRADING.md) | T1-T4 tier definitions, citation format |
-| [IMPLEMENTATION.md](IMPLEMENTATION.md) | Python code for each phase |
-| [EXAMPLES.md](EXAMPLES.md) | Worked examples (EGFR, KRAS, novel target) |
+- [IMPLEMENTATION.md](IMPLEMENTATION.md) - Implementation guide
+- [REPORT_TEMPLATE.md](REPORT_TEMPLATE.md) - Report structure template
+- [TOOL_REFERENCE.md](TOOL_REFERENCE.md) - Complete tool reference
+- [SCORING_CRITERIA.md](SCORING_CRITERIA.md) - Detailed scoring matrices

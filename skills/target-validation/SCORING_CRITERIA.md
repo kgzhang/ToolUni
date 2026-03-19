@@ -274,36 +274,17 @@ Detailed scoring matrices, evidence grading, and priority tier definitions for t
 
 ## Score Calculation
 
-```
-def calculate_validation_score(scores):
-    """Calculate total validation score from component scores."""
+**Implementation**: See [scripts/scoring_utils.py](scripts/scoring_utils.py) for the detailed scoring implementation.
 
-    total = (
-        scores['disease_genetic'] +      # 0-10
-        scores['disease_literature'] +   # 0-10
-        scores['disease_pathway'] +      # 0-10
-        scores['drug_structural'] +      # 0-10
-        scores['drug_chemical'] +        # 0-10
-        scores['drug_class'] +           # 0-5
-        scores['safety_expression'] +    # 0-5
-        scores['safety_genetic'] +       # 0-10
-        scores['safety_adverse'] +       # 0-5
-        scores['clinical'] +             # 0-15
-        scores['validation_functional'] + # 0-5
-        scores['validation_models']      # 0-5
-    )
+**Algorithm**:
 
-    if total >= 80:
-        tier, rec = "Tier 1", "GO - Highly validated target"
-    elif total >= 60:
-        tier, rec = "Tier 2", "CONDITIONAL GO - Needs focused validation"
-    elif total >= 40:
-        tier, rec = "Tier 3", "CAUTION - Significant validation needed"
-    else:
-        tier, rec = "Tier 4", "NO-GO - Consider alternatives"
-
-    return total, tier, rec
-```
+1. Sum component scores from all 5 dimensions
+2. Apply modality-specific adjustments (see [scripts/modality_tractability.py](scripts/modality_tractability.py))
+3. Determine tier based on total:
+   - **≥80**: Tier 1 (GO)
+   - **≥60**: Tier 2 (CONDITIONAL GO)
+   - **≥40**: Tier 3 (CAUTION)
+   - **<40**: Tier 4 (NO-GO)
 
 ---
 

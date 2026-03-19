@@ -1,0 +1,30 @@
+{
+  "phase": 0,
+  "phase_name": "Target Disambiguation",
+  "status": "success",
+  "ids": {
+    "query": "CD28",
+    "symbol": "CD28",
+    "symbol_source": "opentargets",
+    "uniprot": "P10747",
+    "ensembl": "ENSG00000178562",
+    "ensembl_versioned": "ENSG00000178562.19",
+    "entrez": null,
+    "chembl_target": null,
+    "hgnc_id": null,
+    "name": "CD28 molecule",
+    "description": "CD28 molecule [Source:HGNC Symbol;Acc:HGNC:1653]",
+    "aliases": [],
+    "is_human": true,
+    "confidence": "medium",
+    "warnings": []
+  },
+  "summary": {
+    "standard_symbol": "CD28",
+    "uniprot": "P10747",
+    "ensembl": "ENSG00000178562",
+    "confidence": "medium",
+    "is_human": true,
+    "warnings_count": 0
+  }
+}
