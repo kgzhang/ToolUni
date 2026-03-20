@@ -1,0 +1,276 @@
+{
+  "timestamp": "2026-03-20T15:19:07.944819",
+  "summary": {
+    "passed": 31,
+    "failed": 1,
+    "total": 32
+  },
+  "results": [
+    {
+      "tool": "MyGene_query_genes",
+      "params": {
+        "query": "EGFR"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "UniProt_get_entry_by_accession",
+      "params": {
+        "accession": "P00533"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "ensembl_lookup_gene",
+      "params": {
+        "gene_id": "ENSG00000146648",
+        "species": "homo_sapiens"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "OpenTargets_get_target_id_description_by_name",
+      "params": {
+        "targetName": "EGFR"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "ChEMBL_search_targets",
+      "params": {
+        "target_name": "EGFR"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "UniProt_get_function_by_accession",
+      "params": {
+        "accession": "P00533"
+      },
+      "status": "PASSED",
+      "result_type": "list"
+    },
+    {
+      "tool": "InterPro_get_protein_domains",
+      "params": {
+        "protein_id": "P00533"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "alphafold_get_summary",
+      "params": {
+        "qualifier": "P00533"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "alphafold_get_prediction",
+      "params": {
+        "qualifier": "P00533"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "Reactome_map_uniprot_to_pathways",
+      "params": {
+        "uniprot_id": "P00533"
+      },
+      "status": "PASSED",
+      "result_type": "list"
+    },
+    {
+      "tool": "GO_get_annotations_for_gene",
+      "params": {
+        "gene_id": "EGFR"
+      },
+      "status": "PASSED",
+      "result_type": "list"
+    },
+    {
+      "tool": "STRING_get_protein_interactions",
+      "params": {
+        "protein_ids": [
+          "P00533"
+        ],
+        "species": 9606
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "GTEx_get_median_gene_expression",
+      "params": {
+        "gencode_id": "ENSG00000146648",
+        "operation": "get_median_gene_expression"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "HPA_search_genes_by_query",
+      "params": {
+        "search_query": "EGFR"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "OpenTargets_get_diseases_phenotypes_by_target_ensembl",
+      "params": {
+        "ensemblId": "ENSG00000146648"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "gnomad_get_gene_constraints",
+      "params": {
+        "gene_symbol": "EGFR"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "gwas_get_snps_for_gene",
+      "params": {
+        "mapped_gene": "EGFR"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "clinvar_search_variants",
+      "params": {
+        "gene": "EGFR"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "OpenTargets_get_target_tractability_by_ensemblID",
+      "params": {
+        "ensemblId": "ENSG00000146648"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "OpenTargets_get_target_classes_by_ensemblID",
+      "params": {
+        "ensemblId": "ENSG00000146648"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "Pharos_get_target",
+      "params": {
+        "gene": "EGFR"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "DGIdb_get_gene_druggability",
+      "params": {
+        "genes": [
+          "EGFR"
+        ]
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "ChEMBL_get_target_activities",
+      "params": {
+        "target_chembl_id__exact": "CHEMBL203"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "BindingDB_get_ligands_by_uniprot",
+      "params": {
+        "uniprot": "P00533",
+        "affinity_cutoff": 10000
+      },
+      "status": "FAILED",
+      "error": "Request timed out after 60s"
+    },
+    {
+      "tool": "OpenTargets_get_chemical_probes_by_target_ensemblID",
+      "params": {
+        "ensemblId": "ENSG00000146648"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "OpenTargets_get_associated_drugs_by_target_ensemblID",
+      "params": {
+        "ensemblId": "ENSG00000146648",
+        "size": 50
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "DepMap_get_gene_dependencies",
+      "params": {
+        "gene_symbol": "EGFR"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "OpenTargets_get_target_safety_profile_by_ensemblID",
+      "params": {
+        "ensemblId": "ENSG00000146648"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "OpenTargets_get_biological_mouse_models_by_ensemblID",
+      "params": {
+        "ensemblId": "ENSG00000146648"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "OpenTargets_get_target_homologues_by_ensemblID",
+      "params": {
+        "ensemblId": "ENSG00000146648"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    },
+    {
+      "tool": "PubMed_search_articles",
+      "params": {
+        "query": "EGFR AND cancer",
+        "limit": 10
+      },
+      "status": "PASSED",
+      "result_type": "list"
+    },
+    {
+      "tool": "OpenTargets_get_publications_by_target_ensemblID",
+      "params": {
+        "entityId": "ENSG00000146648"
+      },
+      "status": "PASSED",
+      "result_type": "dict"
+    }
+  ]
+}
